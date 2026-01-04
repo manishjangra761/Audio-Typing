@@ -47,7 +47,7 @@ module.exports = {
       isTempPassExists: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
-        defaultValue: false,
+        defaultValue: true,
       },
 
       created_at: {
