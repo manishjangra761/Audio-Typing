@@ -2,7 +2,6 @@ const { User } = require("../../models");
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 const jwt_config = require('../../config/jwt.config')
-let refreshTokens = []
 const refreshTokenSecret = jwt_config.refreshTokenSecret
 const accessTokenSecret = jwt_config.accessTokenSecret
 const saltRounds = jwt_config.saltRounds
@@ -40,21 +39,30 @@ exports.login = async (req, res) => {
             //     //     return res.json({ redirectTo: `/forget-password?id=${userId.encryptedId}&iv=${userId.iv}&reset_password=${true}&email=${email}` });
             //     // }
             // } else {
-            match = bcrypt.compareSync(password, user.password)
+            match = await bcrypt.compare(password, user.password);
+
             // }
 
             if (match) {
                 const payload = {
-                    username: user.name,
                     user_id: user.id,
-                    type: user.type
+                    role: user.type
                 }
                 accessToken = jwt.sign(payload, accessTokenSecret, { expiresIn: jwt_timeout })
-                refreshToken = jwt.sign(payload, refreshTokenSecret, { expiresIn: jwt_timeout });
-                refreshTokens.push(refreshToken)
-                res.status(200).json({ message: "Login successful", accessToken, refreshToken });
+                refreshToken = jwt.sign(payload, refreshTokenSecret, { expiresIn: '7d' });
+                res.cookie("refreshToken", refreshToken, {
+                    httpOnly: true,
+                    secure: process.env.NODE_ENV === "production",          // true in production
+                    sameSite: "strict",
+                    maxAge: 7 * 24 * 60 * 60 * 1000
+                })
+                    .set("Authorization", `Bearer ${accessToken}`)
+                    .status(200)
+                    .json({ message: "Login successful", accessToken: accessToken, refreshToken: refreshToken });
+            } else {
+                return res.status(401).json({ message: "Invalid email or password" });
             }
-        } 2
+        }
     } catch (err) {
         console.log(err)
         return res.status(500).json({ message: "Internal server error" });
@@ -63,17 +71,17 @@ exports.login = async (req, res) => {
 }
 
 exports.logout = (req, res) => {
-    
-    const { refreshToken } = req.headers.token;
 
-    if (!refreshToken) {
-        return res.status(400).json({ message: "Refresh token required" });
-    }
-
-    refreshTokens = refreshTokens.filter(token => token !== refreshToken);
+    console.log(req.headers , "================")
+    res.clearCookie("refreshToken", {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+    });
 
     return res.status(200).json({ message: "Logged out successfully" });
 };
+
 
 
 
@@ -81,11 +89,9 @@ exports.addSuperAdmin = async (req, res) => {
     try {
         const { name, email, phone, password, type, status } = req.body;
 
-        const salt = 10;
+        const salt = jwt_config.saltRounds;
 
         let newHashedPassword = await bcrypt.hash(password, salt);
-
-        console.log(newHashedPassword, "==============", req.body)
 
         const newSuperAdmin = await User.create({
             name,
