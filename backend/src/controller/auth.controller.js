@@ -5,7 +5,9 @@ const jwt_config = require('../../config/jwt.config')
 const refreshTokenSecret = jwt_config.refreshTokenSecret
 const accessTokenSecret = jwt_config.accessTokenSecret
 const saltRounds = jwt_config.saltRounds
-const jwt_timeout = jwt_config.jwt_timeout
+const jwt_timeout = jwt_config.jwt_timeout;
+const { Op } = require("sequelize");
+
 
 exports.login = async (req, res) => {
 
@@ -72,7 +74,6 @@ exports.login = async (req, res) => {
 
 exports.logout = (req, res) => {
 
-    console.log(req.headers , "================")
     res.clearCookie("refreshToken", {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
@@ -89,9 +90,7 @@ exports.addSuperAdmin = async (req, res) => {
     try {
         const { name, email, phone, password, type, status } = req.body;
 
-        const salt = jwt_config.saltRounds;
-
-        let newHashedPassword = await bcrypt.hash(password, salt);
+        let newHashedPassword = await bcrypt.hash(password, saltRounds);
 
         const newSuperAdmin = await User.create({
             name,
@@ -107,6 +106,132 @@ exports.addSuperAdmin = async (req, res) => {
         }
     }
     catch (err) {
+        console.log(err)
+        return res.status(500).json({ message: "Internal server error" });
+    }
+}
+
+
+exports.addNewUser = async (req, res) => {
+    try {
+        const { name, email, phone, password, type, status } = req.body;
+
+        if (!name || !email || !phone || !password || !type || !status) {
+            return res.status(400).json({ message: "Missing required fields" });
+        }
+
+        const whereClause = {
+            [Op.or]: [
+                { email },
+                { phone }
+            ]
+        }
+
+        const existingUser = await User.findOne({
+            where: whereClause
+        });
+        if (existingUser) {
+            return res.status(400).json({ message: "Email or Mobile already exists" });
+        }
+
+        let newHashedPassword = await bcrypt.hash(password, saltRounds);
+
+        const newAdmin = await User.create({
+            name,
+            email,
+            phone,
+            password: newHashedPassword,
+            type: type || "user",
+            status,
+        });
+
+        if (newAdmin) {
+            return res.status(200).json({ message: `${type} added successfully` });
+        }
+    } catch (err) {
+        console.log(" 🔥🔥🔥 Error Adding New Admin", err);
+        res.status(500).json({ message: "Internal server error", error: err.message });
+    }
+}
+
+
+exports.updateUser = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const whereClause = {
+            id
+        }
+
+        if (req.body.email || req.body.phone) {
+            const orConditions = [];
+
+            if (req.body.email) {
+                orConditions.push({ email: req.body.email });
+            }
+
+            if (req.body.phone) {
+                orConditions.push({ phone: req.body.phone });
+            }
+
+            const duplicate = await User.findOne({
+                where: {
+                    id: { [Op.ne]: id },
+                    [Op.or]: orConditions
+                }
+            });
+
+            if (duplicate) {
+                return res.status(400).json({
+                    message: "Email or Mobile already exists"
+                });
+            }
+        }
+
+
+        const updatedData = { ...req.body };
+
+        const [updatedUser] = await User.update(updatedData, {
+            where: whereClause
+        });
+
+        if (!updatedUser) {
+            return res.status(400).json({ message: "No User Update" });
+        }
+        return res.status(200).json({ message: "User updated successfully" });
+
+    } catch (err) {
+        console.log("🔥🔥🔥Error in Update Admin", err)
+        return res.status(500).json({ message: "Internal server error" });
+    }
+}
+
+
+exports.deleteUser = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const deletedUser = await User.destroy({
+            where: { id }
+        });
+        if (deletedUser) {
+            return res.status(200).json({ message: "User deleted successfully" });
+        }
+    } catch (err) {
+        console.log(err)
+        return res.status(500).json({ message: "Internal server error" });
+    }
+}
+
+exports.getAllAdmin = async (req, res) => {
+    try {
+        const admins = await User.findAll({
+            where: {
+                type: "admin"
+            },
+            attributes: ["id", "name", "email", "phone", "type", "status"]
+        });
+        return res.status(200).json({ admins });
+    } catch (err) {
         console.log(err)
         return res.status(500).json({ message: "Internal server error" });
     }

@@ -1,24 +1,25 @@
 const jwt = require("jsonwebtoken");
-const jwt_config = require("../config/jwt.config");
+const jwt_config = require("../../config/jwt.config.js");
 
 const accessTokenSecret = jwt_config.accessTokenSecret;
 
 exports.authenticateJWT = (req, res, next) => {
-  const authHeader = req.headers.authorization;
 
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+  const accessToken = req.headers.authorization;
+
+  if (!accessToken) {
     return res.status(401).json({
       message: "Access token missing",
     });
   }
-
-  const accessToken = authHeader.split(" ")[1];
 
   try {
     const decoded = jwt.verify(accessToken, accessTokenSecret);
 
     // attach user to request
     req.user = decoded;
+
+    console.log(req.user , ";;;;;;;;;;;;;;;;;;;;;;")
 
     next();
   } catch (err) {
