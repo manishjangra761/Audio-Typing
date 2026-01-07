@@ -33,6 +33,16 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.TEXT,
         allowNull: false,
       },
+
+      title: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+
+      duration: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      }
     },
     {
       tableName: "audios",

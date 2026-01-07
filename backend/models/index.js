@@ -25,6 +25,9 @@ db.fn = fn;
 
 // Register your models here
 db.User = require('./users.model')(sequelize, DataTypes);
+db.Category = require('./category.model')(sequelize, DataTypes);
+db.Audio = require('./audio.model')(sequelize, DataTypes);
+db.Attempt = require('./attempts.model')(sequelize, DataTypes);
 
 
 module.exports = db;

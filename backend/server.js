@@ -6,6 +6,8 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 const routes = require('./src/routes');
 const sequelize = require("./config/database");
+const path = require('path');
+
 
 const app = express();
 
@@ -14,6 +16,8 @@ app.use(helmet());
 app.use(cors());
 app.use(morgan("dev"));
 app.use(express.json());
+
+app.use('/audios', express.static(path.join(__dirname, 'audios')));
 
 // Test route
 app.get("/", (req, res) => {
