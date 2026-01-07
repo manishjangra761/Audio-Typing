@@ -43,6 +43,16 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: "inactive",
       },
 
+      reset_token: {
+        type: DataTypes.STRING(255),
+        allowNull: true,
+      },
+
+      reset_token_expiry: {
+        type: DataTypes.DATE,
+        allowNull: true,
+      },
+
       isTempPassExists: {
         type: DataTypes.BOOLEAN,
         allowNull: false,

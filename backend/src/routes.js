@@ -4,10 +4,15 @@ const router = express.Router();
 const authMiddleware = require("./middlewares/auth.middleware");
 const authController = require("./controller/auth.controller");
 const userController = require("./controller/user.controller");
+const forgetPasswordController = require("./controller/forgetPassword.controller");
 
 router.post("/add_super_admin" , authController.addSuperAdmin);
 router.post("/login", authController.login);
 router.post("/logout", authController.logout);
+
+//forget password
+router.post('/forget-password', forgetPasswordController.forgetPassword);
+router.post('/resetandupdate', forgetPasswordController.resetandUpdatePassword);
 
 //common for admin and user
 router.post('/admin/add_new_user',authMiddleware.authenticateJWT , authController.addNewUser)
