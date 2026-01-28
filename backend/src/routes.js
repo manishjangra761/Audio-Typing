@@ -8,6 +8,7 @@ const userController = require("./controller/user.controller");
 const forgetPasswordController = require("./controller/forgetPassword.controller");
 const categoryController = require("./controller/category.controller");
 const audioController = require("./controller/audio.controller");
+const resultController = require("./controller/result.controller");
 
 router.post("/add_super_admin", authController.addSuperAdmin);
 router.post("/login", authController.login);
@@ -33,6 +34,9 @@ router.post('/admin/add_new_category', authMiddleware.authenticateJWT, categoryC
 
 //adding audio file
 router.post('/admin/add_new_audio', upload.single('file'), authMiddleware.authenticateJWT, audioController.addNewAudio)
+
+//audio play record
+router.post('/student/add_result', authMiddleware.authenticateJWT, resultController.addResult)
 
 module.exports = router;
 

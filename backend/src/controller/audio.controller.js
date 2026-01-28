@@ -3,7 +3,6 @@ const db = require('../../models');
 
 exports.addNewAudio = async (req, res) => {
   try {
-    console.log(req.body , "=========-----------")
     const { category_id, language, correct_text, title, duration } = req.body;
 
     if (!req.file) {

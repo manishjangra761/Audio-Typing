@@ -14,6 +14,11 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false
       },
 
+      attempt_type: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      },
+
       audio_id: {
         type: DataTypes.INTEGER,
         allowNull: false
@@ -22,6 +27,16 @@ module.exports = (sequelize, DataTypes) => {
       typed_text: {
         type: DataTypes.TEXT,
         allowNull: false
+      },
+
+      correct_words: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0
+      },
+
+      wrong_words: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0
       },
 
       accuracy: {
