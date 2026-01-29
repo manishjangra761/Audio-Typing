@@ -38,5 +38,8 @@ router.post('/admin/add_new_audio', upload.single('file'), authMiddleware.authen
 //audio play record
 router.post('/student/add_result', authMiddleware.authenticateJWT, resultController.addResult)
 
+//see marks
+router.get('/student/get_result', authMiddleware.authenticateJWT, resultController.getResult)
+
 module.exports = router;
 

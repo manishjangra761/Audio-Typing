@@ -91,3 +91,20 @@ exports.addResult = async (req, res) => {
   }
 };
 
+
+
+exports.getResult = async(req , res) =>{
+    try {
+        const { user_id } = req.user;
+        const attempts = await db.Attempt.findAll({
+            where: { user_id },
+            order: [["attempt_type", "DESC"]],
+            attributes: ["id", "attempt_type", "score" , "accuracy", "createdAt"],
+            raw: true,
+        });
+        return res.status(200).json({ attempts });
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ error: "Server error" });
+    }
+}
