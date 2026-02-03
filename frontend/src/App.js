@@ -1,9 +1,14 @@
+import Navbar from "./components/Navbar";
+
 function App() {
   return (
     <div >
-      "This is Audio app"
+      <Navbar/>
     </div>
   );
 }
 
 export default App;
+
+
+
