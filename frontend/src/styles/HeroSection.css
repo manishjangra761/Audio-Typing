@@ -1,0 +1,21 @@
+.hero {
+    background: linear-gradient(to bottom, #f2eee9 0%, #e4ddd6 40%, #cfc8bf 75%, #b8b1a9 100%);
+    padding: 5px 50px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0 auto;
+    border-radius: 10px;
+}
+
+.hero img {
+    width: auto;
+    height: 50%;
+    max-width: 50%;
+    opacity: 0.85;
+}
+
+.hero-text {
+    font-size: 1.3rem;
+    color: #5551AD;
+}
