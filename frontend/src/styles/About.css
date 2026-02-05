@@ -1,0 +1,23 @@
+.about {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.about-heading {
+    text-align: center;
+    margin-top: 30px;
+    color: #5551AD;
+    font-size: 2.5rem;
+}
+
+.about-para {
+    margin: 30px 7rem;
+    font-size: 1.0rem;
+    text-align: left;
+    line-height: 33px;
+    font-weight: 400;
+}
+
+.about-unorder-list {
+    margin: 0px 20px;
+}
