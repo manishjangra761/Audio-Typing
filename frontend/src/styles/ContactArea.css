@@ -1,0 +1,43 @@
+.contact-container {
+  display: flex;
+  border: 2px solid black;
+}
+
+.contact-description {
+  background: black;
+  width: 50%;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 40px;
+  color: white;
+}
+
+.contact-text {
+  font-size: 18px;
+  margin-bottom: 30px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.contact-icon {
+  font-size: 22px;
+  color: #ffb703;
+}
+
+.contact-form {
+  background: red;
+  width: 50%;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
