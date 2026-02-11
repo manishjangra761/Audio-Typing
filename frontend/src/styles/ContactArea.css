@@ -1,12 +1,15 @@
 .contact-container {
   display: flex;
-  border: 2px solid black;
+  align-items: center;
+  justify-content: center;
+  height: 420px;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  opacity: 0.4;
+  padding: 20px;
 }
 
 .contact-description {
-  background: black;
   width: 50%;
-  height: 500px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -33,11 +36,83 @@
 }
 
 .contact-form {
-  background: red;
   width: 50%;
-  height: 500px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   color: white;
+}
+
+.contact-form h2 {
+  margin-bottom: 12px;
+  text-shadow: 0 0 10px rgba(255,255,255,0.3);
+}
+
+.contact-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 30px;
+  width: 100%;
+  max-width: 350px;
+
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.contact-form input,
+.contact-form textarea {
+  font-size: 16px;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  color: #fff;
+  outline: none;
+}
+
+.contact-form textarea {
+  resize: none;
+  height: 90px;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: #e0e0e0;
+}
+
+.contact-form button {
+  font-size: 16px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.35);
+  border: none;
+  border-radius: 8px;
+  color: #000;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.contact-form button:hover {
+  background: rgba(255, 255, 255, 0.6);
+  transform: translateY(-2px);
+}
+
+/* ✅ Responsive */
+@media (max-width: 768px) {
+  .contact-container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .contact-description,
+  .contact-form {
+    width: 100%;
+    text-align: center;
+  }
 }

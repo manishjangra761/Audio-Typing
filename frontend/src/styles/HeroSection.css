@@ -27,13 +27,13 @@
 
 
 .hero {
-    background: linear-gradient(135deg, #f6f2ee, #ddd6ce);
-    padding: 80px 100px;
+    /* background: linear-gradient(135deg, #f6f2ee, #ddd6ce); */
+    padding: 80px 63px;
     height: 80vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    /* gap: 60px; */
+    gap: 26px;
     border-radius: 20px;
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08);
 }
