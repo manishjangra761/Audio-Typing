@@ -70,6 +70,10 @@
     color: #477E9E;
 }
 
+.overlay {
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.2);
+}
 
 .hero-image img:hover {
     transform: translateY(-8px);
@@ -88,8 +92,36 @@
     /* animation: fadeUp 1s ease forwards; */
 }
 
+.hero-text-heading button {
+    border-radius: 28px;
+    background-color: #477E9E;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    margin: 20px 2px;
+    cursor: pointer;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
 /* TEXT CARD */
+
 .hero-text {
+    /* background: rgba(255, 255, 255, 0.75); */
+    backdrop-filter: blur(0px);
+    border-radius: 18px;
+    padding: 28px 6px 18px 23px;
+    font-size: 1.15rem;
+    /* color: #333; */
+    max-width: 500px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    animation: fadeUp 1s ease forwards;
+}
+
+/* .hero-text {
     background: rgba(255, 255, 255, 0.75);
     backdrop-filter: blur(10px);
     border-radius: 18px;
@@ -99,7 +131,7 @@
     max-width: 500px;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
     animation: fadeUp 1s ease forwards;
-}
+} */
 
 /* HEADING */
 .hero-text h2 {
