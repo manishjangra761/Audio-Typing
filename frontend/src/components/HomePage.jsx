@@ -7,7 +7,7 @@ import '../styles/HomePage.css'
 
 const HomePage = () => {
     return (
-        <div className='page-bg'>
+        <div className='home-bg'>
             <Navbar />
             <HeroSection />
             <About />

@@ -1,19 +1,33 @@
-import React from 'react'
-import '../styles/Login.css'
+import React from "react";
+import { FaEnvelope, FaLock } from "react-icons/fa";
+import AuthLayout from "./AuthLayout";
 
 const Login = () => {
-    return (
-        < div className="login-form-container" >
-            <form className="login-form">
-                <h2 className="form-title">Login</h2>
+  return (
+    <AuthLayout title="Welcome Back">
 
-                <input type="email" placeholder="Email Address" />
-                <input type="password" placeholder="Password" />
+      <div className="input-group">
+        <FaEnvelope className="input-icon" />
+        <input type="email" placeholder="Email Address" />
+      </div>
 
-                <button type="submit">Login</button>
-            </form>
-        </div>
-    )
-}
+      <div className="input-group">
+        <FaLock className="input-icon" />
+        <input type="password" placeholder="Password" />
+      </div>
 
-export default Login
+      <div className="login-options">
+        <a href="#">Forgot Password?</a>
+      </div>
+
+      <button type="submit">Login</button>
+
+      <p className="auth-switch">
+        Don’t have an account? <a href="/register">Register</a>
+      </p>
+
+    </AuthLayout>
+  );
+};
+
+export default Login;

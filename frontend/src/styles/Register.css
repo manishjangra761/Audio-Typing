@@ -2,7 +2,7 @@
 .page-bg {
   min-height: 100vh;
   width: 100%;
-  background-image: url("../../public/assets/bg.png") !important;
+  background-image: url("../../public/assets/bg.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -186,6 +186,30 @@
 
   padding: 0 8%;
   background: rgba(0, 0, 0, 0.35);
+}
+
+.login-options {
+  text-align: right;
+  margin-top: -5px;
+  margin-bottom: 5px;
+}
+
+.login-options a {
+  color: white;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.auth-switch {
+  text-align: center;
+  color: white;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.auth-switch a {
+  color: white;
+  /* text-decoration: none; */
 }
 
 .left-content {
