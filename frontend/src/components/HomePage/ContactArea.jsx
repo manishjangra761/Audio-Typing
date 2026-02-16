@@ -1,5 +1,5 @@
 import React from 'react'
-import '../styles/ContactArea.css'
+import '../../styles/ContactArea.css'
 import { MdLocationPin, MdCall } from "react-icons/md";
 
 const ContactArea = () => {

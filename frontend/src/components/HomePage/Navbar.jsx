@@ -1,6 +1,7 @@
 import React from 'react'
-import '../styles/global.css'
-import '../styles/Navbar.css'
+import '../../styles/global.css'
+import '../../styles/Navbar.css'
+import Register from '../Register'
 
 const Navbar = () => {
     return (
@@ -20,7 +21,7 @@ const Navbar = () => {
 
             <div className="header">
                 <ul className="header-list">
-                    <a href="/home" className="header-link">
+                    <a href="/" className="header-link">
                         <li className="header-elements overlay-elements">
                             Home
                         </li>
@@ -51,8 +52,6 @@ const Navbar = () => {
                     </a>
                 </ul>
             </div>
-
-
         </nav>
     )
 }
