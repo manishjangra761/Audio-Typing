@@ -122,6 +122,13 @@
   resize: none;
 }
 
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+ 
+  /* background: rgba(255,255,255,0.15); */
+  color: white;
+}
+
 .contact-form button {
   height: 48px;
   border: none;

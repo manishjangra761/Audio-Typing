@@ -21,7 +21,7 @@ const ContactArea = () => {
         </div>
       </div>
 
-      <div className='contact-form'>
+      <div className='contact-area-form'>
         <h2>Feedback Form</h2>
         <form action="">
           <input type="text" placeholder="Name" />
