@@ -6,7 +6,7 @@ import Navbar from "./HomePage/Navbar";
 const Contact = () => {
     return (
         <div className="contact-bg">
-            <Navbar />
+            <Navbar type= "contact"/>
             <div className="contact-layout">
 
                 {/* LEFT SIDE INFO */}

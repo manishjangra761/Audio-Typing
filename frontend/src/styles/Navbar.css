@@ -10,6 +10,22 @@
   z-index: 1000;
 }
 
+.navbar-overlay {
+   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* background-color: #fff8f8; */
+  padding: 12px 60px;
+  position: absolute;   /* IMPORTANT */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+
+  background: transparent;  /* remove white bg */
+  box-shadow: none;
+}
+
 .overlay {
   backdrop-filter: blur(40px);
   background: rgba(255, 255, 255, 0.2);

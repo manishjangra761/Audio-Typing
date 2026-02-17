@@ -3,9 +3,9 @@ import '../../styles/global.css'
 import '../../styles/Navbar.css'
 import Register from '../Register'
 
-const Navbar = () => {
+const Navbar = ({type}) => {
     return (
-        <nav className='navbar overlay'>
+        <nav className={` ${type === "homepage" ? "navbar overlay" : "navbar-overlay overlay"}`}>
             <div className='logo'>
                 <a href="/"><img src="/assets/logo.png" alt="Audio Typing Logo" /></a>
 

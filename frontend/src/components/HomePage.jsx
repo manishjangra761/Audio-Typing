@@ -8,7 +8,7 @@ import AboutHome from './HomePage/AboutHome'
 const HomePage = () => {
     return (
         <div className='home-bg'>
-            <Navbar />
+            <Navbar type="homepage"/>
             <HeroSection />
             <AboutHome />
             <ContactArea />

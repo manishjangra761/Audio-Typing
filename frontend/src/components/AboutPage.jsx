@@ -5,9 +5,9 @@ import Navbar from "./HomePage/Navbar";
 const AboutPage = () => {
   return (
       <div className="about-page">
-        <Navbar />
+        <Navbar type='homepage'/>
       {/* HERO SECTION */}
-      <section className="hero">
+      <section className="hero-about">
         <div className="hero-overlay">
           <h1>About Audio Typing</h1>
           <p>Practice smart. Type faster. Succeed confidently.</p>
