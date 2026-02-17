@@ -1,16 +1,16 @@
 import React from 'react'
 import Navbar from './HomePage/Navbar'
 import HeroSection from './HomePage/HeroSection'
-import About from './HomePage/About'
 import ContactArea from './HomePage/ContactArea'
 import '../styles/HomePage.css'
+import AboutHome from './HomePage/AboutHome'
 
 const HomePage = () => {
     return (
         <div className='home-bg'>
             <Navbar />
             <HeroSection />
-            <About />
+            <AboutHome />
             <ContactArea />
         </div>
     )

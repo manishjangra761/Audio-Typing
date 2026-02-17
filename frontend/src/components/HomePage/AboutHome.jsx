@@ -1,7 +1,7 @@
 import React from 'react';
-import '../../styles/About.css';
+import '../../styles/AboutHome.css';
 
-const About = () => {
+const AboutHome = () => {
     return (
         <div className="about">
             <h1 className="about-heading">About Audio Typing</h1>
@@ -45,4 +45,4 @@ const About = () => {
     );
 };
 
-export default About;
+export default AboutHome;
