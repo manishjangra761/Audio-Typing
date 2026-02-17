@@ -1,11 +1,12 @@
 import React from "react";
 import "../styles/Contact.css";
 import { FaUser, FaEnvelope, FaCommentDots, FaPhone, FaMapMarkerAlt } from "react-icons/fa";
+import Navbar from "./HomePage/Navbar";
 
 const Contact = () => {
     return (
         <div className="contact-bg">
-
+            <Navbar />
             <div className="contact-layout">
 
                 {/* LEFT SIDE INFO */}

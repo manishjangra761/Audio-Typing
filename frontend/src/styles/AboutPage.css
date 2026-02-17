@@ -1,97 +1,169 @@
-.page-bg {
-  min-height: 100vh;
-  width: 100%;
+.about-page {
+  font-family: "Poppins", sans-serif;
+  color: #222;
+}
+
+/* HERO */
+.hero {
+  height: 70vh;
   background-image: url("../../public/assets/bg.png");
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
+  position: relative;
+}
 
-  /* CENTER CONTENT */
+.hero-overlay {
+  height: 100%;
+  background: linear-gradient(
+    rgba(0,0,0,0.65),
+    rgba(0,0,0,0.65)
+  );
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  padding: 60px 20px;
-}
-
-/* MAIN CARD (BIG IMPROVEMENT) */
-.about-container {
-  max-width: 1000px;
-  width: 100%;
-  padding: 50px;
-  border-radius: 20px;
-
-  /* GLASS EFFECT */
-  background: rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(8px);
-
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  align-items: center;
   color: white;
+  text-align: center;
+  padding: 20px;
+  border-radius: 25px;
 }
 
-/* Title */
-.about-title {
-  text-align: center;
-  font-size: 44px;
+.hero h1 {
+  font-size: 52px;
   font-weight: 700;
-  margin-bottom: 10px;
-  color: #fff;
 }
 
-.about-subtitle {
-  text-align: center;
-  font-size: 18px;
-  opacity: 0.9;
-  margin-bottom: 45px;
+.hero p {
+  font-size: 24px;
+  margin: 15px 0 25px;
 }
 
-/* Sections */
-.about-section {
-  margin-bottom: 35px;
-}
-
-.about-section h2 {
-  font-size: 28px;
-  margin-bottom: 15px;
+.cta-btn {
+  background: #5551AD;
   color: white;
-  border-left: 4px solid #5551AD;
-  padding-left: 12px;
-}
-
-/* Text */
-.about-section p {
-  font-size: 17px;
-  line-height: 1.8;
-  margin-bottom: 12px;
-  color: #f1f1f1;
-}
-
-/* List */
-.about-section ul {
-  padding-left: 25px;
-}
-
-.about-section li {
-  margin-bottom: 10px;
-  line-height: 1.7;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 10px;
   font-size: 16px;
-  color: #f1f1f1;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-/* MOBILE */
-@media (max-width: 768px) {
-  .about-container {
-    padding: 25px;
+.cta-btn:hover {
+  transform: translateY(-3px);
+  background: #4440a0;
+}
+
+/* SECTIONS */
+.section {
+  max-width: 1200px;
+  margin: auto;
+  padding: 70px 20px;
+}
+
+.section h2 {
+  font-size: 34px;
+  margin-bottom: 25px;
+}
+
+/* WHO WE ARE */
+.who {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.who-text p {
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+
+.who-icons div {
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.who-image img {
+  width: 100%;
+  border-radius: 16px;
+}
+
+/* OFFER */
+.offer {
+  background: #e4e6ee;
+  border-radius: 20px;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.feature-card {
+  background: white;
+  padding: 22px;
+  border-radius: 14px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.feature-card:hover {
+  transform: translateY(-6px);
+}
+
+/* MISSION VISION */
+.mission-vision {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+
+.mv-card {
+  padding: 30px;
+  border-radius: 14px;
+  color: white;
+}
+
+.mission {
+  background: #3b82f6;
+}
+
+.vision {
+  background: #10b981;
+}
+
+.mv-card p {
+  margin-top: 10px;
+  line-height: 1.7;
+}
+
+/* BOTTOM CTA */
+.bottom-cta {
+  text-align: center;
+  padding: 80px 20px;
+  background: #111827;
+  color: white;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+
+  .hero h1 {
+    font-size: 36px;
   }
 
-  .about-title {
-    font-size: 32px;
+  .hero p {
+    font-size: 18px;
   }
 
-  .about-section h2 {
-    font-size: 22px;
+  .who {
+    grid-template-columns: 1fr;
   }
 
-  .about-section p,
-  .about-section li {
-    font-size: 15px;
+  .mission-vision {
+    grid-template-columns: 1fr;
   }
 }
