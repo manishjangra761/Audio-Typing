@@ -26,9 +26,6 @@ exports.login = async (req, res) => {
         if (!user) {
             return res.status(401).json({ message: "Invalid email or password" });
         }
-        if (user.status !== "active") {
-            return res.status(403).json({ message: "Account inactive" });
-        }
 
         if (user) {
             let match;
@@ -46,6 +43,9 @@ exports.login = async (req, res) => {
             // }
 
             if (match) {
+                if (user.status !== "active") {
+                    return res.status(403).json({ message: "Account inactive" });
+                }
                 const payload = {
                     user_id: user.id,
                     role: user.type
@@ -114,7 +114,7 @@ exports.register = async (req, res) => {
             phone,
             password: newHashedPassword,
             type: "user",
-            status : "inactive",
+            status: "inactive",
         });
 
         if (newAdmin) {

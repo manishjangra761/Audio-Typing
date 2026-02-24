@@ -7,19 +7,20 @@ import Login from "./components/Login";
 import Contact from "./components/Contact";
 import AboutPage from "./components/AboutPage";
 import { ToastContainer } from "react-toastify";
+import HomeDashboard from "./components/Dashboard/HomeDashboard";
+import ProtectedRoute from "./components/ProtectedRoutes";
 
 function App() {
   return (
     <Router>
       <div>
-        {/* <Navbar /> */}
-
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/dashboard" element={<ProtectedRoute><HomeDashboard /></ProtectedRoute>} />
         </Routes>
       </div>
     </Router>
