@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./components/Login";
 import Contact from "./components/Contact";
 import AboutPage from "./components/AboutPage";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -20,7 +21,6 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<AboutPage />} />
         </Routes>
-
       </div>
     </Router>
   );

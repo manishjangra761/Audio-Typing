@@ -13,6 +13,10 @@
   display: flex;
   justify-content: flex-end;
 }
+.message {
+  color: red;
+  align-self: center;
+}
 
 .register-form {
   position: relative;

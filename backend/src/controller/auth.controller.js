@@ -84,6 +84,49 @@ exports.logout = (req, res) => {
 };
 
 
+exports.register = async (req, res) => {
+    try {
+        const { name, email, phone, password } = req.body;
+
+        if (!name || !email || !phone || !password) {
+            return res.status(400).json({ message: "Missing required fields" });
+        }
+
+        const whereClause = {
+            [Op.or]: [
+                { email },
+                { phone }
+            ]
+        }
+
+        const existingUser = await User.findOne({
+            where: whereClause
+        });
+        if (existingUser) {
+            return res.status(400).json({ message: "Email or Mobile already exists" });
+        }
+
+        let newHashedPassword = await bcrypt.hash(password, saltRounds);
+
+        const newAdmin = await User.create({
+            name,
+            email,
+            phone,
+            password: newHashedPassword,
+            type: "user",
+            status : "inactive",
+        });
+
+        if (newAdmin) {
+            return res.status(200).json({ message: `User added successfully but waiting for admin approval` });
+        }
+    } catch (err) {
+        console.log(" 🔥🔥🔥 Error Adding New Admin", err);
+        res.status(500).json({ message: "Internal server error", error: err.message });
+    }
+}
+
+
 
 
 exports.addSuperAdmin = async (req, res) => {

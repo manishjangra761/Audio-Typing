@@ -13,13 +13,14 @@ const resultController = require("./controller/result.controller");
 router.post("/add_super_admin", authController.addSuperAdmin);
 router.post("/login", authController.login);
 router.post("/logout", authController.logout);
+router.post("/register", authController.register);
 
 //forget password
 router.post('/forget-password', forgetPasswordController.forgetPassword);
 router.post('/resetandupdate', forgetPasswordController.resetandUpdatePassword);
 
 //common for admin and user
-router.post('/admin/add_new_user', authMiddleware.authenticateJWT, authController.addNewUser)
+router.post('/admin/add_new_user', authMiddleware.authenticateJWT, authController.addNewUser) // have to change this
 router.put('/admin/update_user/:id', authMiddleware.authenticateJWT, authController.updateUser)
 router.delete('/admin/delete_user/:id', authMiddleware.authenticateJWT, authController.deleteUser)
 
