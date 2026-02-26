@@ -12,7 +12,7 @@ const HeroSection = () => {
             </div>
             {/* <img alt="hero image" /> */}
             {/* <img src={HeroImage} alt="hero image" /> */}
-            <div className='hero-text overlay'>
+            <div className='hero-text hero-blur'>
                 <h2>Why Audio Typing ?</h2>
                 <li>Real exam-like audio typing practice</li>
                 <li>Improves typing speed and accuracy</li>

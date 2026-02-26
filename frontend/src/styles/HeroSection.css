@@ -70,7 +70,8 @@
     color: #477E9E;
 }
 
-.overlay {
+.hero-blur {
+    /* semi-transparent blur used only for hero text box */
     backdrop-filter: blur(10px);
     background: rgba(255, 255, 255, 0.2);
 }
