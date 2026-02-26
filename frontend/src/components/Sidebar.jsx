@@ -1,57 +1,113 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import "../styles/Sidebar.css";
+import {
+  FaChartLine,
+  FaMicrophone,
+  FaClipboardList,
+  FaHistory,
+  FaUserCog,
+  FaBook,
+  FaFileAlt,
+  FaUsers,
+  FaTools,
+  FaCogs,
+  FaChevronDown,
+  FaTimes
+} from "react-icons/fa";
 
 const Sidebar = ({ role }) => {
+  const [expanded, setExpanded] = useState(true);
+  const [expandedMenu, setExpandedMenu] = useState(null);
 
   const menuItems = {
     superadmin: [
-      { name: "Dashboard", path: "/superadmin/dashboard" },
-      { name: "Exam Categories", path: "/superadmin/exam-categories" },
-      { name: "Languages", path: "/superadmin/languages" },
-      { name: "Admins Management", path: "/superadmin/admins" },
-      { name: "Students Management", path: "/superadmin/students" },
-      { name: "Audio Library", path: "/superadmin/audio-library" },
-      { name: "Reports", path: "/superadmin/reports" },
-      { name: "Analytics", path: "/superadmin/analytics" },
-      { name: "System Settings", path: "/superadmin/settings" }
+      { name: "Dashboard", path: "/superadmin/dashboard", icon: FaChartLine },
+      { name: "Exam Categories", path: "/superadmin/exam-categories", icon: FaBook },
+      { name: "Languages", path: "/superadmin/languages", icon: FaTools },
+      { name: "Admins Management", path: "/superadmin/admins", icon: FaUsers },
+      { name: "Students Management", path: "/superadmin/students", icon: FaUserCog },
+      { name: "Audio Library", path: "/superadmin/audio-library", icon: FaMicrophone },
+      { name: "Reports", path: "/superadmin/reports", icon: FaFileAlt },
+      { name: "Analytics", path: "/superadmin/analytics", icon: FaChartLine },
+      { name: "System Settings", path: "/superadmin/settings", icon: FaCogs }
     ],
     admin: [
-      { name: "Dashboard", path: "/admin/dashboard" },
-      { name: "Upload Audio", path: "/admin/upload-audio" },
-      { name: "Manage Audio", path: "/admin/manage-audio" },
-      { name: "Test Management", path: "/admin/tests" },
-      { name: "Results", path: "/admin/results" },
-      { name: "Reports", path: "/admin/reports" }
+      { name: "Dashboard", path: "/admin/dashboard", icon: FaChartLine },
+      { name: "Upload Audio", path: "/admin/upload-audio", icon: FaMicrophone },
+      { name: "Manage Audio", path: "/admin/manage-audio", icon: FaBook },
+      { name: "Test Management", path: "/admin/tests", icon: FaClipboardList },
+      { name: "Results", path: "/admin/results", icon: FaFileAlt },
+      { name: "Reports", path: "/admin/reports", icon: FaChartLine }
     ],
     student: [
-      { name: "Dashboard", path: "/student/dashboard" },
-      { name: "Start Practice", path: "/student/practice" },
-      { name: "My Results", path: "/student/results" },
-      { name: "Performance History", path: "/student/history" },
-      { name: "Profile", path: "/student/profile" }
+      { name: "Dashboard", path: "/student/dashboard", icon: FaChartLine },
+      { name: "Start Practice", path: "/student/practice", icon: FaMicrophone },
+      { name: "My Results", path: "/student/results", icon: FaClipboardList },
+      { name: "Performance History", path: "/student/history", icon: FaHistory },
+      { name: "Profile", path: "/student/profile", icon: FaUserCog }
     ]
   };
 
-  return (
-    <div className="sidebar">
-      {/* <h2 className="logo">Typing App</h2> */}
+  const items = menuItems[role] || [];
 
-      <ul className="menu">
-        {menuItems[role]?.map((item, index) => (
-          <li key={index}>
-            <NavLink
-              to={item.path}
-              className={({ isActive }) =>
-                isActive ? "menu-link active" : "menu-link"
-              }
-            >
-              {item.name}
-            </NavLink>
-          </li>
-        ))}
-      </ul>
-    </div>
+  return (
+    <>
+      {/* Sidebar Toggle for Mobile */}
+      <button
+        onClick={() => setExpanded(!expanded)}
+        className="fixed bottom-6 right-6 z-40 md:hidden w-12 h-12 rounded-full glass flex items-center justify-center text-white hover:glass-light smooth-transition"
+      >
+        {expanded ? <FaTimes className="w-5 h-5" /> : "≡"}
+      </button>
+
+      {/* Sidebar */}
+      <aside 
+        className={`fixed md:relative z-30 h-screen left-0 top-0 glass-elevated border-r border-white/10 backdrop-blur-xl pt-6 overflow-y-auto smooth-transition ${
+          expanded ? 'w-72' : 'w-0 md:w-20'
+        } hidden md:flex flex-col`}
+      >
+        {/* Sidebar Content */}
+        <div className="px-4 space-y-2 flex flex-col flex-1">
+          {/* Navigation Items */}
+          <nav className="space-y-1">
+            {items.map((item, index) => {
+              const Icon = item.icon;
+              return (
+                <NavLink
+                  key={index}
+                  to={item.path}
+                  className={({ isActive }) =>
+                    `flex items-center gap-3 px-4 py-3 rounded-xl smooth-transition text-sm font-medium ${
+                      isActive
+                        ? 'bg-gradient-to-r from-primary-500/20 to-accent-500/20 text-primary-400 border-l-2 border-primary-400'
+                        : 'text-neutral-400 hover:text-white hover:glass'
+                    }`
+                  }
+                >
+                  <Icon className="w-5 h-5 flex-shrink-0" />
+                  {expanded && <span className="whitespace-nowrap">{item.name}</span>}
+                </NavLink>
+              );
+            })}
+          </nav>
+        </div>
+
+        {/* Sidebar Footer */}
+        <div className="px-4 pb-6 border-t border-white/10 pt-4">
+          <div className="glass rounded-lg p-3 text-xs text-neutral-400 text-center">
+            {expanded ? 'Audio Typing v1.0' : ''}
+          </div>
+        </div>
+      </aside>
+
+      {/* Mobile Sidebar Background */}
+      {expanded && (
+        <div 
+          className="fixed inset-0 z-20 md:hidden backdrop-blur-sm"
+          onClick={() => setExpanded(false)}
+        />
+      )}
+    </>
   );
 };
 

@@ -9,8 +9,9 @@ import { useNavigate } from 'react-router-dom'
 const Login = () => {
 
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
-  let [data, setData] = useState({
+  const [data, setData] = useState({
     email: "",
     password: ""
   })
@@ -23,6 +24,12 @@ const Login = () => {
   }
 
   const handleLogin = async () => {
+    if (!data.email || !data.password) {
+      toast.error("Please fill in all fields");
+      return;
+    }
+
+    setLoading(true);
     try {
       const payload = {
         email: data.email,
@@ -43,40 +50,84 @@ const Login = () => {
         localStorage.setItem('refreshToken', response.data.refreshToken);
         navigate('/dashboard');
       } else {
-      toast.error(response.message || response.data.message);
+        toast.error(response.message || response.data.message);
+      }
+    }
+    catch (err) {
+      console.log(err)
+      toast.error(err.response?.data?.message || err.message);
+    }
+    finally {
+      setLoading(false);
     }
   }
-    catch (err) {
-    console.log(err)
-    toast.error(err.message);
-  }
-}
 
-return (
-  <AuthLayout title="Welcome Back">
+  return (
+    <AuthLayout title="Welcome Back">
 
-    <div className="input-group">
-      <FaEnvelope className="input-icon" />
-      <input type="email" placeholder="Email Address" name="email" onChange={handleData} />
-    </div>
+      {/* Email Input */}
+      <div className="space-y-2">
+        <label className="text-sm font-semibold text-neutral-300">Email Address</label>
+        <div className="relative">
+          <FaEnvelope className="absolute left-4 top-1/2 -translate-y-1/2 text-primary-400 text-sm" />
+          <input 
+            type="email" 
+            placeholder="you@example.com" 
+            name="email" 
+            value={data.email}
+            onChange={handleData}
+            className="input-field pl-10" 
+          />
+        </div>
+      </div>
 
-    <div className="input-group">
-      <FaLock className="input-icon" />
-      <input type="password" placeholder="Password" name="password" onChange={handleData} />
-    </div>
+      {/* Password Input */}
+      <div className="space-y-2">
+        <label className="text-sm font-semibold text-neutral-300">Password</label>
+        <div className="relative">
+          <FaLock className="absolute left-4 top-1/2 -translate-y-1/2 text-primary-400 text-sm" />
+          <input 
+            type="password" 
+            placeholder="••••••••" 
+            name="password" 
+            value={data.password}
+            onChange={handleData}
+            className="input-field pl-10" 
+          />
+        </div>
+      </div>
 
-    <div className="login-options">
-      <a href="#">Forgot Password?</a>
-    </div>
+      {/* Forgot Password Link */}
+      <div className="flex justify-end">
+        <a href="/forgot-password" className="text-sm text-primary-400 hover:text-primary-300 font-semibold smooth-transition hover:underline">
+          Forgot Password?
+        </a>
+      </div>
 
-    <button type="button" onClick={handleLogin}>Login</button>
+      {/* Login Button */}
+      <button 
+        type="button" 
+        onClick={handleLogin}
+        disabled={loading}
+        className="btn w-full mt-4 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+      >
+        {loading ? (
+          <>
+            <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+            Signing in...
+          </>
+        ) : (
+          <>
+            Sign In
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </>
+        )}
+      </button>
 
-    <p className="auth-switch">
-      Don’t have an account? <a href="/register">Register</a>
-    </p>
-
-  </AuthLayout>
-);
+    </AuthLayout>
+  );
 };
 
 export default Login;

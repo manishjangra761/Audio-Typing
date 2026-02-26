@@ -1,19 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0f172a" />
+    <meta name="color-scheme" content="dark light" />
     <meta
       name="description"
-      content="Web site created using create-react-app"
+      content="Audio Typing - A modern AI-powered transcription platform for stenoographers"
     />
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+      @layer base {
+        html {
+          @apply scroll-smooth;
+        }
+        body {
+          @apply bg-neutral-950 dark:bg-neutral-950 text-neutral-50 dark:text-neutral-50 antialiased;
+          background-attachment: fixed;
+        }
+        * {
+          @apply transition-colors duration-200;
+        }
+      }
+    </style>
 
-    <title>Audio Typing App</title>
+    <title>Audio Typing - AI-Powered Transcription Platform</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

@@ -1,5 +1,4 @@
 import HomePage from "./components/HomePage";
-import './styles/global.css'
 import Navbar from "./components/HomePage/Navbar";
 import Register from "./components/Register";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -13,7 +12,7 @@ import ProtectedRoute from "./components/ProtectedRoutes";
 function App() {
   return (
     <Router>
-      <div>
+      <div className="w-full min-h-screen bg-neutral-950">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/register" element={<Register />} />
