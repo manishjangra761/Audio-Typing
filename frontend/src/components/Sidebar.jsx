@@ -11,13 +11,11 @@ import {
   FaUsers,
   FaTools,
   FaCogs,
-  FaChevronDown,
   FaTimes
 } from "react-icons/fa";
 
 const Sidebar = ({ role }) => {
   const [expanded, setExpanded] = useState(true);
-  const [expandedMenu, setExpandedMenu] = useState(null);
 
   const menuItems = {
     superadmin: [
@@ -40,8 +38,8 @@ const Sidebar = ({ role }) => {
       { name: "Reports", path: "/admin/reports", icon: FaChartLine }
     ],
     student: [
-      { name: "Dashboard", path: "/student/dashboard", icon: FaChartLine },
-      { name: "Start Practice", path: "/student/practice", icon: FaMicrophone },
+      { name: "Dashboard", path: "/dashboard", icon: FaChartLine },
+      { name: "Start Practice", path: "/dashboard/practice", icon: FaMicrophone },
       { name: "My Results", path: "/student/results", icon: FaClipboardList },
       { name: "Performance History", path: "/student/history", icon: FaHistory },
       { name: "Profile", path: "/student/profile", icon: FaUserCog }

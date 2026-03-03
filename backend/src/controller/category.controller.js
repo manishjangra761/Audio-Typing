@@ -13,3 +13,13 @@ exports.addNewCategory = async (req, res) => {
         return res.status(500).json({ message: "Internal server error" });
     }
 }
+
+exports.getAllCategories = async (req, res) => {
+    try {
+        const categories = await db.Category.findAll({attributes: ["id", "name"]});
+        return res.status(200).json({ categories });
+    } catch (err) {
+        console.log(err)
+        return res.status(500).json({ message: "Internal server error" });
+    }
+}

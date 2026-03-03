@@ -32,6 +32,7 @@ router.get('/user/get_all_users', authMiddleware.authenticateJWT, userController
 
 //for adding category
 router.post('/admin/add_new_category', authMiddleware.authenticateJWT, categoryController.addNewCategory)
+router.get('/category/get_all_categories', authMiddleware.authenticateJWT, categoryController.getAllCategories)
 
 //adding audio file
 router.post('/admin/add_new_audio', upload.single('file'), authMiddleware.authenticateJWT, audioController.addNewAudio)
