@@ -29,5 +29,9 @@ db.Category = require('./category.model')(sequelize, DataTypes);
 db.Audio = require('./audio.model')(sequelize, DataTypes);
 db.Attempt = require('./attempts.model')(sequelize, DataTypes);
 
+db.Audio.belongsTo(db.Category, {
+  foreignKey: "category_id",
+});
+
 
 module.exports = db;

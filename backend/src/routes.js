@@ -37,6 +37,10 @@ router.get('/category/get_all_categories', authMiddleware.authenticateJWT, categ
 //adding audio file
 router.post('/admin/add_new_audio', upload.single('file'), authMiddleware.authenticateJWT, audioController.addNewAudio)
 
+//get audio files
+router.get('/audio/get_audios', authMiddleware.authenticateJWT, audioController.getAllAudios)
+
+
 //audio play record
 router.post('/student/add_result', authMiddleware.authenticateJWT, resultController.addResult)
 

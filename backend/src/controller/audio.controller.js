@@ -1,5 +1,7 @@
 const path = require('path');
 const db = require('../../models');
+const { or } = require('sequelize');
+const { Op } = require("sequelize");
 
 exports.addNewAudio = async (req, res) => {
   try {
@@ -24,5 +26,42 @@ exports.addNewAudio = async (req, res) => {
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: 'Server error' });
+  }
+};
+
+
+
+
+exports.getAllAudios = async (req, res) => {
+  try {
+    const { category, language, search } = req.query;
+
+    const whereClause = {};
+
+    if (category) whereClause.category_id = category;
+    if (language) whereClause.language = language;
+
+    if (search && search.trim() !== "") {
+      whereClause.title = {
+        [Op.like]: `%${search.trim()}%`
+      };
+    }
+
+    const audios = await db.Audio.findAll({
+      where: whereClause,
+      attributes: ["id", "title", "duration", "language", "audio_path"],
+      include: [
+        {
+          model: db.Category,
+          attributes: ["name"],   // 👈 Banking
+        },
+      ],
+      order: [["title", "ASC"]],
+    });
+
+    return res.status(200).json({ audios });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "Server error" });
   }
 };
