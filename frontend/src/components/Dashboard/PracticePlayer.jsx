@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import DashboardLayout from "./DashboardLayout";
 import axios from "../../services/api";
+import { toast } from "react-toastify";
 
 const PracticePlayer = () => {
     const { id } = useParams();
@@ -17,6 +18,19 @@ const PracticePlayer = () => {
             console.error("Failed to load audio", err);
         }
     };
+
+    const addResult = () =>{
+        axios.post('/student/add_result' , {
+            audio_id : id,
+            typed_text : typedText
+        }).then((res) => {
+            console.log(res);
+            toast.success(res.data.message);
+            setTypedText('');
+        }).catch((err) => {
+            console.error(err);
+        })
+    }
 
     useEffect(() => {
         getAudio();
@@ -59,7 +73,7 @@ const PracticePlayer = () => {
                 </div>
 
                 {/* Submit Button */}
-                <button className="btn btn-primary px-6 py-3 rounded-xl">
+                <button onClick={addResult} className="btn btn-primary px-6 py-3 rounded-xl">
                     Submit Practice
                 </button>
 
