@@ -65,3 +65,26 @@ exports.getAllAudios = async (req, res) => {
     return res.status(500).json({ error: "Server error" });
   }
 };
+
+
+
+exports.getAudio = async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    const audio = await db.Audio.findOne({
+      where: { id },
+      include: [
+        {
+          model: db.Category,
+          attributes: ["name"],   // 👈 Banking
+        },
+      ],
+    });
+
+    return res.status(200).json({ audio });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "Server error" });
+  }
+};

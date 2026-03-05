@@ -2,6 +2,7 @@
 import DashboardLayout from "./DashboardLayout";
 import { FaHeadphones } from 'react-icons/fa';
 import api from "../../services/api";
+import { useNavigate } from "react-router-dom";
 
 const PracticePage = () => {
   const [step, setStep] = useState(1);
@@ -12,6 +13,8 @@ const PracticePage = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedLanguage, setSelectedLanguage] = useState(null);
   const [search, setSearch] = useState("");
+
+  const navigate = useNavigate();
 
   // -----------------------------
   // Fetch Categories
@@ -184,7 +187,8 @@ const PracticePage = () => {
                           {formatDuration(audio.duration)}
                         </td>
                         <td className="px-6 py-4 text-left">
-                          <button className="btn btn-primary px-4 py-2 rounded-lg">
+                          <button  onClick={() => navigate(`/dashboard/practice/${audio.id}`)}
+                           className="btn btn-primary px-4 py-2 rounded-lg">
                             ▶ Start
                           </button>
                         </td>

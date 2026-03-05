@@ -3,6 +3,7 @@ import DashboardLayout from "./DashboardLayout";
 import HomeDashboard from "./HomeDashboard";
 // import Results from "./Results";
 import PracticePage from "./PracticePage";
+import PracticePlayer from "./PracticePlayer";
 
 const DashboardRoutes = () => {
   return (
@@ -10,6 +11,7 @@ const DashboardRoutes = () => {
       <Routes>
         <Route index element={<HomeDashboard />} />
         <Route path="practice" element={<PracticePage />} />
+        <Route path="practice/:id" element={<PracticePlayer />} />
         {/* <Route path="results" element={<Results />} /> */}
       </Routes>
     // </DashboardLayout>

@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const upload = require("./middlewares/multer.middleware");
-
 const authMiddleware = require("./middlewares/auth.middleware");
 const authController = require("./controller/auth.controller");
 const userController = require("./controller/user.controller");
@@ -38,7 +37,10 @@ router.get('/category/get_all_categories', authMiddleware.authenticateJWT, categ
 router.post('/admin/add_new_audio', upload.single('file'), authMiddleware.authenticateJWT, audioController.addNewAudio)
 
 //get audio files
-router.get('/audio/get_audios', authMiddleware.authenticateJWT, audioController.getAllAudios)
+router.get('/audio/get_audios', authMiddleware.authenticateJWT, audioController.getAllAudios);
+
+//get audio file
+router.get('/audio/get_audio/:id', authMiddleware.authenticateJWT, audioController.getAudio);
 
 
 //audio play record
