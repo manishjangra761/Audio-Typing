@@ -40,8 +40,8 @@ const Sidebar = ({ role }) => {
     student: [
       { name: "Dashboard", path: "/dashboard", icon: FaChartLine },
       { name: "Start Practice", path: "/dashboard/practice", icon: FaMicrophone },
-      { name: "My Results", path: "/student/results", icon: FaClipboardList },
-      { name: "Performance History", path: "/student/history", icon: FaHistory },
+      { name: "My Results", path: "/dashboard/results", icon: FaClipboardList },
+      { name: "Performance History", path: "/dashboard/history", icon: FaHistory },
       { name: "Profile", path: "/student/profile", icon: FaUserCog }
     ]
   };

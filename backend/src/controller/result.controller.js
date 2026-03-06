@@ -1,5 +1,6 @@
 const { raw } = require("express");
 const db = require("../../models");
+const { Op, fn, col } = require("sequelize");
 
 exports.addResult = async (req, res) => {
   try {
@@ -93,18 +94,96 @@ exports.addResult = async (req, res) => {
 
 
 
-exports.getResult = async(req , res) =>{
-    try {
-        const { user_id } = req.user;
-        const attempts = await db.Attempt.findAll({
-            where: { user_id },
-            order: [["attempt_type", "DESC"]],
-            attributes: ["id", "attempt_type", "score" , "accuracy", "createdAt"],
-            raw: true,
-        });
-        return res.status(200).json({ attempts });
-    } catch (err) {
-        console.error(err);
-        return res.status(500).json({ error: "Server error" });
+// exports.getResult = async (req, res) => {
+//   try {
+//     const { user_id } = req.user;
+//     const { unique } = req.params;
+
+//     const attempts = await db.Attempt.findAll({
+//       where: { user_id },
+//       include: [
+//         {
+//           model: db.Audio,
+//           attributes: ["title"],
+//         },
+//       ],
+//       order: [["attempt_type", "DESC"]],
+//       raw: true,
+//     });
+
+//     return res.status(200).json({ attempts });
+//   } catch (err) {
+//     console.error(err);
+//     return res.status(500).json({ error: "Server error" });
+//   }
+// }
+
+
+exports.getResult = async (req, res) => {
+
+  try {
+
+    const { user_id } = req.user;
+    const { unique } = req.query;
+
+    let attempts;
+
+    if (unique) {
+
+      attempts = await db.Attempt.findAll({
+
+        where: {
+          user_id,
+          attempt_type: {
+            [Op.in]: db.sequelize.literal(`(
+              SELECT MAX(attempt_type)
+              FROM attempts
+              WHERE user_id = ${user_id}
+              GROUP BY audio_id
+            )`)
+          }
+        },
+
+        include: [
+          {
+            model: db.Audio,
+            attributes: ["title"]
+          }
+        ],
+
+        order: [["attempt_type", "DESC"]],
+        raw: true
+
+      });
+
+    } else {
+
+      attempts = await db.Attempt.findAll({
+
+        where: { user_id },
+
+        include: [
+          {
+            model: db.Audio,
+            attributes: ["title"]
+          }
+        ],
+
+        order: [["attempt_type", "DESC"]],
+        raw: true
+
+      });
+
     }
-}
+
+    return res.status(200).json({ attempts });
+
+  } catch (err) {
+
+    console.error(err);
+    return res.status(500).json({ error: "Server error" });
+
+  }
+
+};
+

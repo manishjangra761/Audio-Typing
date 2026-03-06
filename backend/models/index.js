@@ -33,5 +33,14 @@ db.Audio.belongsTo(db.Category, {
   foreignKey: "category_id",
 });
 
+db.Audio.hasMany(db.Attempt, {
+  foreignKey: "audio_id"
+});
+
+db.Attempt.belongsTo(db.Audio, {
+  foreignKey: "audio_id"
+});
+
+
 
 module.exports = db;
