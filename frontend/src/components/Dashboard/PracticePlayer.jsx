@@ -9,6 +9,7 @@ const PracticePlayer = () => {
 
     const [audio, setAudio] = useState(null);
     const [typedText, setTypedText] = useState("");
+    const [result, setResult] = useState();
 
     const getAudio = async () => {
         try {
@@ -19,12 +20,19 @@ const PracticePlayer = () => {
         }
     };
 
-    const addResult = () =>{
-        axios.post('/student/add_result' , {
-            audio_id : id,
-            typed_text : typedText
+    const addResult = () => {
+        axios.post('/student/add_result', {
+            audio_id: id,
+            typed_text: typedText
         }).then((res) => {
             console.log(res);
+            setResult({
+                accuracy: res.data.accuracy,
+                score: res.data.score,
+                totalWords: res.data.totalWords,
+                correctWords: res.data.correctWords,
+                wrongWords: res.data.wrongWords
+            });
             toast.success(res.data.message);
             setTypedText('');
         }).catch((err) => {
@@ -40,7 +48,7 @@ const PracticePlayer = () => {
 
     return (
         <DashboardLayout role="student" userName="Manish">
-            <div className="space-y-8">
+            {!result && <div className="space-y-8">
 
                 {/* Audio Info */}
                 <div>
@@ -77,7 +85,44 @@ const PracticePlayer = () => {
                     Submit Practice
                 </button>
 
-            </div>
+            </div>}
+
+            {result && (
+                <div className="space-y-8">
+                    <h1 className="text-3xl font-bold text-white">Practice Result</h1>
+
+                    <div className="glass-card p-6 rounded-2xl text-white space-y-3">
+
+                        <p>
+                            <span className="font-semibold">Accuracy:</span> {result.accuracy}%
+                        </p>
+
+                        <p>
+                            <span className="font-semibold">Score:</span> {result.score}
+                        </p>
+
+                        <p>
+                            <span className="font-semibold">Total Words:</span> {result.totalWords}
+                        </p>
+
+                        <p>
+                            <span className="font-semibold">Correct Words:</span> {result.correctWords}
+                        </p>
+
+                        <p>
+                            <span className="font-semibold">Wrong Words:</span> {result.wrongWords}
+                        </p>
+
+                    </div>
+                    <button
+                        onClick={() => setResult(null)}
+                        className="btn btn-secondary px-6 py-3 rounded-xl"
+                    >
+                        Try Again
+                    </button>
+                </div>
+            )}
+
         </DashboardLayout>
     );
 };
