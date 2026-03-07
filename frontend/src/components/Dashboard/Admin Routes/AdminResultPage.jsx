@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "../../../services/api";
+import { useNavigate } from "react-router-dom";
 
 const AdminResultPage = () => {
 
@@ -8,6 +9,7 @@ const AdminResultPage = () => {
   const [allAudios , setAllAudios] = useState([]);
   const [users, setUsers] = useState([]);
   const [audios, setAudios] = useState([]);
+  const navigate = useNavigate();
 
   // GET ALL USERS
   const getAllUsers = async () => {
@@ -152,6 +154,14 @@ const AdminResultPage = () => {
               <p>Date: {attempt.createdAt}</p>
               <p>Correct Words: {attempt.correct_words}</p>
               <p>Accuracy: {attempt.accuracy}%</p>
+               <button
+                onClick={() =>
+                    navigate(`/admin/results/${attempt.id}`,{ state: attempt })
+                }
+                className="btn btn-primary px-4 py-2 rounded-lg"
+            >
+                Show
+            </button>
             </div>
           ))}
         </div>

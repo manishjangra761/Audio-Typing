@@ -5,7 +5,7 @@ import UploadAudioPage from "./UploadAudioPage";
 import ManageAudio from "./ManageAudio";
 import AdminResultPage from "./AdminResultPage";
 // import PracticePlayer from "./PracticePlayer";
-// import ResultDetails from "./ResultDetails";
+import ResultDetails from "../Student Routes/ResultDetails";
 
 const StudentRoutes = () => {
   return (
@@ -15,6 +15,7 @@ const StudentRoutes = () => {
         <Route path="upload-audio" element={<UploadAudioPage />} />
         <Route path="manage-audio" element={<ManageAudio />} />
         <Route path="results" element={<AdminResultPage />} />
+        <Route path="results/:id" element={<ResultDetails />} />
         {/*<Route path="results/:id" element={<ResultDetails />} />
         <Route path="history" element={<ResultPage />} />
         <Route path="history/:id" element={<ResultDetails />} /> */}
