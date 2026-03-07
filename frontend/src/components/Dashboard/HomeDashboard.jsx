@@ -1,5 +1,4 @@
 import React from 'react'
-import DashboardLayout from './DashboardLayout'
 import { FaBook, FaClipboardCheck, FaTrophy, FaLightbulb } from 'react-icons/fa'
 
 const HomeDashboard = () => {
@@ -27,7 +26,7 @@ const HomeDashboard = () => {
     ];
 
     return (
-        <DashboardLayout role="student" userName="Manish">
+        <>
             <div className="space-y-12">
                 {/* Welcome Header */}
                 <div className="glass-card p-8 md:p-12 rounded-3xl space-y-4 animate-fadeInUp">
@@ -124,7 +123,7 @@ const HomeDashboard = () => {
                     </div>
                 </div>
             </div>
-        </DashboardLayout>
+        </>
     )
 }
 

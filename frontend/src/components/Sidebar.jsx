@@ -15,10 +15,11 @@ import {
 } from "react-icons/fa";
 
 const Sidebar = ({ role }) => {
+
   const [expanded, setExpanded] = useState(true);
 
   const menuItems = {
-    superadmin: [
+    super_admin: [
       { name: "Dashboard", path: "/superadmin/dashboard", icon: FaChartLine },
       { name: "Exam Categories", path: "/superadmin/exam-categories", icon: FaBook },
       { name: "Languages", path: "/superadmin/languages", icon: FaTools },
@@ -37,7 +38,7 @@ const Sidebar = ({ role }) => {
       { name: "Results", path: "/admin/results", icon: FaFileAlt },
       { name: "Reports", path: "/admin/reports", icon: FaChartLine }
     ],
-    student: [
+    user: [
       { name: "Dashboard", path: "/dashboard", icon: FaChartLine },
       { name: "Start Practice", path: "/dashboard/practice", icon: FaMicrophone },
       { name: "My Results", path: "/dashboard/results", icon: FaClipboardList },

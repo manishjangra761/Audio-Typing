@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
-import DashboardLayout from "./DashboardLayout";
 import axios from "../../services/api";
 import { toast } from "react-toastify";
 
@@ -11,14 +10,14 @@ const PracticePlayer = () => {
     const [typedText, setTypedText] = useState("");
     const [result, setResult] = useState();
 
-    const getAudio = async () => {
+    const getAudio = useCallback(async () => {
         try {
             const res = await axios.get(`/audio/get_audio/${id}`);
             setAudio(res.data.audio);
         } catch (err) {
             console.error("Failed to load audio", err);
         }
-    };
+    }, [id]);
 
     const addResult = () => {
         axios.post('/student/add_result', {
@@ -42,12 +41,12 @@ const PracticePlayer = () => {
 
     useEffect(() => {
         getAudio();
-    }, []);
+    }, [getAudio]);
 
     if (!audio) return <p className="text-white">Loading...</p>;
 
     return (
-        <DashboardLayout role="student" userName="Manish">
+        <div className="space-y-8">
             {!result && <div className="space-y-8">
 
                 {/* Audio Info */}
@@ -123,7 +122,7 @@ const PracticePlayer = () => {
                 </div>
             )}
 
-        </DashboardLayout>
+        </div>
     );
 };
 

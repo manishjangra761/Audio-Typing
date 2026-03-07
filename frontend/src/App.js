@@ -6,21 +6,25 @@ import Contact from "./components/Contact";
 import AboutPage from "./components/AboutPage";
 import ProtectedRoute from "./components/ProtectedRoutes";
 import DashboardRoutes from "./components/Dashboard/DashboardRoutes";
+import { UserProvider } from "./context/UserContext";
 
 function App() {
   return (
-    <Router>
-      <div className="w-full min-h-screen bg-neutral-950">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/dashboard/*" element={<ProtectedRoute><DashboardRoutes /></ProtectedRoute>} />
-        </Routes>
-      </div>
-    </Router>
+    <UserProvider>
+      <Router>
+        <div className="w-full min-h-screen bg-neutral-950">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/dashboard/*" element={<ProtectedRoute><DashboardRoutes /></ProtectedRoute>} />
+            
+          </Routes>
+        </div>
+      </Router>
+    </UserProvider>
   );
 }
 

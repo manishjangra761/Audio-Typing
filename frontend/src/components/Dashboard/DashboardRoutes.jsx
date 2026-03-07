@@ -9,7 +9,7 @@ import ResultDetails from "./ResultDetails";
 
 const DashboardRoutes = () => {
   return (
-    // <DashboardLayout>
+    <DashboardLayout>
       <Routes>
         <Route index element={<HomeDashboard />} />
         <Route path="practice" element={<PracticePage />} />
@@ -19,7 +19,7 @@ const DashboardRoutes = () => {
         <Route path="history" element={<ResultPage />} />
         <Route path="history/:id" element={<ResultDetails />} />
       </Routes>
-    // </DashboardLayout>
+    </DashboardLayout>
   );
 };
 

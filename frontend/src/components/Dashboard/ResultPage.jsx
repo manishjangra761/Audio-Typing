@@ -400,8 +400,7 @@
 
 
 
-import React, { useEffect, useState } from "react";
-import DashboardLayout from "./DashboardLayout";
+import React, { useEffect, useState, useCallback } from "react";
 import axios from "../../services/api";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -412,7 +411,7 @@ const ResultPage = () => {
     const location = useLocation();   // get current URL
     const isHistoryPage = location.pathname.includes("history");
 
-    const getResults = async () => {
+    const getResults = useCallback(async () => {
 
         try {
 
@@ -432,17 +431,15 @@ const ResultPage = () => {
 
         }
 
-    };
+    }, [isHistoryPage]);
 
     useEffect(() => {
 
         getResults();
 
-    }, [location.pathname]);   // reload when url changes
+    }, [location.pathname, getResults]);   // reload when url changes
 
     return (
-
-        <DashboardLayout role="student" userName="Manish">
 
             <div className="space-y-8">
 
@@ -519,8 +516,6 @@ const ResultPage = () => {
                 </div>
 
             </div>
-
-        </DashboardLayout>
 
     );
 

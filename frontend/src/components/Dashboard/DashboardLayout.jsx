@@ -1,8 +1,11 @@
 import React from "react";
 import Header from "../Header";
 import Sidebar from "../Sidebar";
+import { useUser } from "../../context/UserContext";
 
-const DashboardLayout = ({ role, userName, children }) => {
+const DashboardLayout = ({ children }) => {
+  const { user } = useUser();
+
   return (
     <div className="w-full h-screen bg-gradient-mesh flex flex-col overflow-hidden">
       {/* Animated background elements */}
@@ -12,12 +15,12 @@ const DashboardLayout = ({ role, userName, children }) => {
       </div>
 
       {/* Header */}
-      <Header userName={userName} />
+      <Header userName={user?.name || 'User'} />
 
       {/* Main Body */}
       <div className="flex flex-1 overflow-hidden">
         {/* Sidebar */}
-        <Sidebar role={role} />
+        <Sidebar role={user?.type || 'student'} />
 
         {/* Main Content */}
         <main className="flex-1 overflow-y-auto">

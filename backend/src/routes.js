@@ -27,6 +27,7 @@ router.delete('/admin/delete_user/:id', authMiddleware.authenticateJWT, authCont
 router.get('/admin/get_all_admins', authMiddleware.authenticateJWT, authController.getAllAdmin)
 
 //all users apis
+router.get('/user/get_profile', authMiddleware.authenticateJWT, userController.getProfile)
 router.get('/user/get_all_users', authMiddleware.authenticateJWT, userController.getAllUsers)
 
 //for adding category

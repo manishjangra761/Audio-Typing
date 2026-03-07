@@ -1,5 +1,4 @@
 import React from "react";
-import DashboardLayout from "./DashboardLayout";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const ResultDetails = () => {
@@ -11,17 +10,15 @@ const ResultDetails = () => {
 
     if (!result) {
         return (
-            <DashboardLayout role="student" userName="Manish">
+            <div>
                 <p className="text-white">Result not found</p>
-            </DashboardLayout>
+            </div>
         );
     }
 
     return (
 
-        <DashboardLayout role="student" userName="Manish">
-
-            <div className="max-w-4xl mx-auto space-y-8">
+        <div className="max-w-4xl mx-auto space-y-8">
 
                 <p
                     onClick={() => navigate(-1)}
@@ -72,8 +69,6 @@ const ResultDetails = () => {
                 </div>
 
             </div>
-
-        </DashboardLayout>
 
     );
 

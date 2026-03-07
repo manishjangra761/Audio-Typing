@@ -1,8 +1,6 @@
-﻿// import React, { useState, useEffect } from "react";
-// import DashboardLayout from "./DashboardLayout";
-// import { FaHeadphones } from 'react-icons/fa';
-// import api from "../../services/api";
-// import { useNavigate } from "react-router-dom";
+﻿import React, { useState, useEffect, useCallback } from "react";
+import { FaHeadphones } from 'react-icons/fa';
+import api from "../../services/api";
 
 // const PracticePage = () => {
 //   const [step, setStep] = useState(1);
@@ -212,12 +210,7 @@
 
 
 
-import React, { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
-import DashboardLayout from "./DashboardLayout";
-import axios from "../../services/api";
-import { useNavigate } from "react-router-dom";
-import { FaHeadphones } from 'react-icons/fa';
+import { useSearchParams, useNavigate } from "react-router-dom";
 
 const PracticePage = () => {
 
@@ -295,7 +288,7 @@ const PracticePage = () => {
 
 
 
-  const fetchAudios = async () => {
+  const fetchAudios = useCallback(async () => {
 
     try {
 
@@ -315,7 +308,7 @@ const PracticePage = () => {
 
     }
 
-  };
+  }, [category, language, search]);
 
 
   const formatDuration = (seconds) => {
@@ -326,8 +319,7 @@ const PracticePage = () => {
 
 
   return (
-
-    <DashboardLayout role="student" userName="Manish">
+    <div>
 
       {/* ------------------ */}
       {/* STEP 1 CATEGORY */}
@@ -494,8 +486,7 @@ const PracticePage = () => {
 
       )}
 
-    </DashboardLayout>
-
+    </div>
   );
 
 };
