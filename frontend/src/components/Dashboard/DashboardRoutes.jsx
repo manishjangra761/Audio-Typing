@@ -16,6 +16,8 @@ const DashboardRoutes = () => {
         <Route path="practice/:id" element={<PracticePlayer />} />
         <Route path="results" element={<ResultPage />} />
         <Route path="results/:id" element={<ResultDetails />} />
+        <Route path="history" element={<ResultPage />} />
+        <Route path="history/:id" element={<ResultDetails />} />
       </Routes>
     // </DashboardLayout>
   );
