@@ -34,7 +34,7 @@ const Sidebar = ({ role }) => {
       { name: "Dashboard", path: "/admin", icon: FaChartLine },
       { name: "Upload Audio", path: "/admin/upload-audio", icon: FaMicrophone },
       { name: "Manage Audio", path: "/admin/manage-audio", icon: FaBook },
-      { name: "Test Management", path: "/admin/tests", icon: FaClipboardList },
+      // { name: "Test Management", path: "/admin/tests", icon: FaClipboardList },
       { name: "Results", path: "/admin/results", icon: FaFileAlt },
       { name: "Reports", path: "/admin/reports", icon: FaChartLine }
     ],

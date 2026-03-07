@@ -70,21 +70,8 @@ exports.getAllAudios = async (req, res) => {
 
 exports.getAdminAllAudios = async (req, res) => {
   try {
-    const { category, language, search } = req.query;
-
-    const whereClause = {};
-
-    if (category) whereClause.category_id = category;
-    if (language) whereClause.language = language;
-
-    if (search && search.trim() !== "") {
-      whereClause.title = {
-        [Op.like]: `%${search.trim()}%`
-      };
-    }
 
     const audios = await db.Audio.findAll({
-      where: whereClause,
       attributes: ["id", "title", "duration", "language", "audio_path" , "correct_text"],
       include: [
         {

@@ -18,11 +18,10 @@ exports.authenticateJWT = (req, res, next) => {
 
     // attach user to request
     req.user = decoded;
-
-    console.log(req.user , ";;;;;;;;;;;;;;;;;;;;;;")
-
+    
     next();
   } catch (err) {
+    console.log(err)
     if (err.name === "TokenExpiredError") {
       return res.status(401).json({
         message: "Access token expired",

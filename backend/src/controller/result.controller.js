@@ -92,39 +92,11 @@ exports.addResult = async (req, res) => {
   }
 };
 
-
-
-// exports.getResult = async (req, res) => {
-//   try {
-//     const { user_id } = req.user;
-//     const { unique } = req.params;
-
-//     const attempts = await db.Attempt.findAll({
-//       where: { user_id },
-//       include: [
-//         {
-//           model: db.Audio,
-//           attributes: ["title"],
-//         },
-//       ],
-//       order: [["attempt_type", "DESC"]],
-//       raw: true,
-//     });
-
-//     return res.status(200).json({ attempts });
-//   } catch (err) {
-//     console.error(err);
-//     return res.status(500).json({ error: "Server error" });
-//   }
-// }
-
-
 exports.getResult = async (req, res) => {
 
   try {
-
-    const { user_id } = req.user;
-    const { unique } = req.query;
+    const user_id = req.query.user_id ? req.query.user_id : req.user.id;
+    const { unique , audio_id } = req.query;
 
     let attempts;
 
@@ -157,18 +129,20 @@ exports.getResult = async (req, res) => {
       });
 
     } else {
+      
+      whereCondition = {user_id};
+      if (audio_id) {
+        whereCondition.audio_id = audio_id;
+      }
 
       attempts = await db.Attempt.findAll({
-
-        where: { user_id },
-
+        where: whereCondition,
         include: [
           {
             model: db.Audio,
             attributes: ["title"]
           }
         ],
-
         order: [["attempt_type", "DESC"]],
         raw: true
 
@@ -179,7 +153,6 @@ exports.getResult = async (req, res) => {
     return res.status(200).json({ attempts });
 
   } catch (err) {
-
     console.error(err);
     return res.status(500).json({ error: "Server error" });
 
