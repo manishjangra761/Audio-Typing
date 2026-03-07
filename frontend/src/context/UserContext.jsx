@@ -13,40 +13,25 @@ export const useUser = () => {
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchUser = async () => {
-      const token = localStorage.getItem('accessToken');
-      if (token) {
-        try {
-          const response = await api.get('/user/get_profile');
-          setUser(response.data.user);
-        } catch (error) {
-          console.error('Failed to fetch user profile:', error);
-          // If token is invalid, clear it
-          localStorage.removeItem('accessToken');
-          localStorage.removeItem('refreshToken');
-        }
+      const user_info = localStorage.getItem('user_info');
+
+      if(user_info){
+        setUser(JSON.parse(user_info));
       }
-      setLoading(false);
-    };
+        }, []);
 
-    fetchUser();
-  }, []);
-
-  const updateUser = (newUser) => {
-    setUser(newUser);
-  };
 
   const logout = () => {
     setUser(null);
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
+    localStorage.removeItem('user_info');
   };
 
   return (
-    <UserContext.Provider value={{ user, loading, updateUser, logout }}>
+    <UserContext.Provider value={{ user, logout }}>
       {children}
     </UserContext.Provider>
   );

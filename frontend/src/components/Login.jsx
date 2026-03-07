@@ -48,7 +48,10 @@ const Login = () => {
         });
         localStorage.setItem('accessToken', response.data.accessToken);
         localStorage.setItem('refreshToken', response.data.refreshToken);
-        navigate('/dashboard');
+        localStorage.setItem('user_info', JSON.stringify(response.data.user));
+        if(response.data.user.role === 'admin') navigate('/admin');
+        if(response.data.user.role === 'super_admin') navigate('/super_admin');
+        if(response.data.user.role === 'user') navigate('/student');
       } else {
         toast.error(response.message || response.data.message);
       }

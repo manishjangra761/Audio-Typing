@@ -48,7 +48,8 @@ exports.login = async (req, res) => {
                 }
                 const payload = {
                     user_id: user.id,
-                    role: user.type
+                    role: user.type,
+                    name: user.name
                 }
                 accessToken = jwt.sign(payload, accessTokenSecret, { expiresIn: jwt_timeout })
                 refreshToken = jwt.sign(payload, refreshTokenSecret, { expiresIn: '7d' });
@@ -60,7 +61,7 @@ exports.login = async (req, res) => {
                 })
                     .set("Authorization", `Bearer ${accessToken}`)
                     .status(200)
-                    .json({ message: "Login successful", accessToken: accessToken, refreshToken: refreshToken });
+                    .json({ message: "Login successful", accessToken: accessToken, refreshToken: refreshToken , user: payload });
             } else {
                 return res.status(401).json({ message: "Invalid email or password" });
             }

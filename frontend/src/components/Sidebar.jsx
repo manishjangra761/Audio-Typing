@@ -20,7 +20,7 @@ const Sidebar = ({ role }) => {
 
   const menuItems = {
     super_admin: [
-      { name: "Dashboard", path: "/superadmin/dashboard", icon: FaChartLine },
+      { name: "Dashboard", path: "/superadmin", icon: FaChartLine },
       { name: "Exam Categories", path: "/superadmin/exam-categories", icon: FaBook },
       { name: "Languages", path: "/superadmin/languages", icon: FaTools },
       { name: "Admins Management", path: "/superadmin/admins", icon: FaUsers },
@@ -31,7 +31,7 @@ const Sidebar = ({ role }) => {
       { name: "System Settings", path: "/superadmin/settings", icon: FaCogs }
     ],
     admin: [
-      { name: "Dashboard", path: "/admin/dashboard", icon: FaChartLine },
+      { name: "Dashboard", path: "/admin", icon: FaChartLine },
       { name: "Upload Audio", path: "/admin/upload-audio", icon: FaMicrophone },
       { name: "Manage Audio", path: "/admin/manage-audio", icon: FaBook },
       { name: "Test Management", path: "/admin/tests", icon: FaClipboardList },
@@ -39,13 +39,14 @@ const Sidebar = ({ role }) => {
       { name: "Reports", path: "/admin/reports", icon: FaChartLine }
     ],
     user: [
-      { name: "Dashboard", path: "/dashboard", icon: FaChartLine },
-      { name: "Start Practice", path: "/dashboard/practice", icon: FaMicrophone },
-      { name: "My Results", path: "/dashboard/results", icon: FaClipboardList },
-      { name: "Performance History", path: "/dashboard/history", icon: FaHistory },
+      { name: "Dashboard", path: "/student", icon: FaChartLine },
+      { name: "Start Practice", path: "/student/practice", icon: FaMicrophone },
+      { name: "My Results", path: "/student/results", icon: FaClipboardList },
+      { name: "Performance History", path: "/student/history", icon: FaHistory },
       { name: "Profile", path: "/student/profile", icon: FaUserCog }
     ]
   };
+
 
   const items = menuItems[role] || [];
 

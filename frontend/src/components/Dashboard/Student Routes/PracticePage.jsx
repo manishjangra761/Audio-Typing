@@ -1,6 +1,7 @@
-﻿
+﻿import React, { useState, useEffect, useCallback } from "react";
+import { FaHeadphones } from 'react-icons/fa';
 import { useSearchParams, useNavigate } from "react-router-dom";
-import axios from "../../services/api";
+import axios from "../../../services/api";
 
 const PracticePage = () => {
 

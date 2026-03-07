@@ -5,7 +5,8 @@ import Login from "./components/Login";
 import Contact from "./components/Contact";
 import AboutPage from "./components/AboutPage";
 import ProtectedRoute from "./components/ProtectedRoutes";
-import DashboardRoutes from "./components/Dashboard/DashboardRoutes";
+import StudentRoutes from "./components/Dashboard/Student Routes/StudentRoutes";
+import AdminRoutes from "./components/Dashboard/Admin Routes/AdminRoutes";
 import { UserProvider } from "./context/UserContext";
 
 function App() {
@@ -19,7 +20,8 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/about" element={<AboutPage />} />
-            <Route path="/dashboard/*" element={<ProtectedRoute><DashboardRoutes /></ProtectedRoute>} />
+            <Route path="/student/*" element={<ProtectedRoute><StudentRoutes /></ProtectedRoute>} />
+            <Route path="/admin/*" element={<ProtectedRoute><AdminRoutes /></ProtectedRoute>} />
             
           </Routes>
         </div>

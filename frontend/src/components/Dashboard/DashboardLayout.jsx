@@ -15,12 +15,12 @@ const DashboardLayout = ({ children }) => {
       </div>
 
       {/* Header */}
-      <Header userName={user?.name || 'User'} />
+      <Header userName={user?.name || 'user'} />
 
       {/* Main Body */}
       <div className="flex flex-1 overflow-hidden">
         {/* Sidebar */}
-        <Sidebar role={user?.type || 'student'} />
+        <Sidebar role={user?.role || 'user'} />
 
         {/* Main Content */}
         <main className="flex-1 overflow-y-auto">

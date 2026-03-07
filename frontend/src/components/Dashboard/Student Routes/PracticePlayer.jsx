@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
-import axios from "../../services/api";
+import axios from "../../../services/api";
 import { toast } from "react-toastify";
 
 const PracticePlayer = () => {

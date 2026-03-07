@@ -1,13 +1,13 @@
 import { Routes, Route } from "react-router-dom";
-import DashboardLayout from "./DashboardLayout";
-import HomeDashboard from "./HomeDashboard";
+import DashboardLayout from "../DashboardLayout";
+import HomeDashboard from "../HomeDashboard";
 // import Results from "./Results";
-import PracticePage from "./PracticePage";
-import PracticePlayer from "./PracticePlayer";
-import ResultPage from "./ResultPage";
-import ResultDetails from "./ResultDetails";
+import PracticePage from "../Student Routes/PracticePage";
+import PracticePlayer from "../Student Routes/PracticePlayer";
+import ResultPage from "../Student Routes/ResultPage";
+import ResultDetails from "../Student Routes/ResultDetails";
 
-const DashboardRoutes = () => {
+const StudentRoutes = () => {
   return (
     <DashboardLayout>
       <Routes>
@@ -23,4 +23,4 @@ const DashboardRoutes = () => {
   );
 };
 
-export default DashboardRoutes;
+export default StudentRoutes;
