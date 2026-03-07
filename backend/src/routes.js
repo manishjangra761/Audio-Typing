@@ -39,9 +39,17 @@ router.post('/admin/add_new_audio', upload.single('file'), authMiddleware.authen
 //get audio files
 router.get('/audio/get_audios', authMiddleware.authenticateJWT, audioController.getAllAudios);
 
+//get audio file foe admin
+router.get('/admin/audio/get_audios', authMiddleware.authenticateJWT, audioController.getAdminAllAudios);
+
+//delete audio file
+router.delete('/audio/delete_audio/:id', authMiddleware.authenticateJWT, audioController.deleteAudio);
+
+//update audio details of file
+router.put('/audio/update_audio/:id', authMiddleware.authenticateJWT, audioController.updateAudio);
+
 //get audio file
 router.get('/audio/get_audio/:id', authMiddleware.authenticateJWT, audioController.getAudio);
-
 
 //audio play record
 router.post('/student/add_result', authMiddleware.authenticateJWT, resultController.addResult)
