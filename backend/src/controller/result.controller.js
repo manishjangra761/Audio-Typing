@@ -95,7 +95,7 @@ exports.addResult = async (req, res) => {
 exports.getResult = async (req, res) => {
 
   try {
-    const user_id = req.query.user_id ? req.query.user_id : req.user.id;
+    const user_id = req.query.user_id ? req.query.user_id : req.user.user_id;
     const { unique , audio_id } = req.query;
 
     let attempts;

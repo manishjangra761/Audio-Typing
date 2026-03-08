@@ -257,7 +257,7 @@ const PracticePage = () => {
                           {formatDuration(audio.duration)}
                         </td>
                         <td className="px-6 py-4 text-left">
-                          <button  onClick={() => navigate(`/dashboard/practice/${audio.id}`)}
+                          <button  onClick={() => navigate(`/student/practice/${audio.id}`)}
                            className="btn btn-primary px-4 py-2 rounded-lg">
                             ▶ Start Practice
                           </button>
