@@ -32,11 +32,10 @@ const Sidebar = ({ role }) => {
     ],
     admin: [
       { name: "Dashboard", path: "/admin", icon: FaChartLine },
+      { name: "Users", path: "/admin/users", icon: FaUsers },
       { name: "Upload Audio", path: "/admin/upload-audio", icon: FaMicrophone },
       { name: "Manage Audio", path: "/admin/manage-audio", icon: FaBook },
-      // { name: "Test Management", path: "/admin/tests", icon: FaClipboardList },
       { name: "Results", path: "/admin/results", icon: FaFileAlt },
-      { name: "Reports", path: "/admin/reports", icon: FaChartLine }
     ],
     user: [
       { name: "Dashboard", path: "/student", icon: FaChartLine },
