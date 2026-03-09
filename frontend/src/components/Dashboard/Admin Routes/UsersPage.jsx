@@ -15,13 +15,16 @@ import {
   FaTimesCircle,
   FaExclamationTriangle
 } from "react-icons/fa";
+import { useLocation } from "react-router-dom";
 
 const UsersPage = () => {
+
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
+
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedType, setSelectedType] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("");
+
   const [showModal, setShowModal] = useState(false);
   const [editId, setEditId] = useState(null);
   const [deleteConfirm, setDeleteConfirm] = useState(null);
@@ -31,16 +34,33 @@ const UsersPage = () => {
     email: "",
     phone: "",
     password: "",
-    type: "student",
+    type: "user",
     status: "active",
   });
 
-  // fetch users
+  const location = useLocation();
+  const isAdminPage = location.pathname.includes("admins");
+
+  const pageTitle = isAdminPage ? "Admin Management" : "User Management";
+  const addButtonText = isAdminPage ? "Add Admin" : "Add User";
+  const emptyText = isAdminPage ? "No Admins Found" : "No Users Found";
+
+  // FETCH USERS BASED ON LOGGED USER TYPE
   const getUsers = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("/user/get_all_users");
-      setUsers(res.data.users || []);
+
+      let res;
+
+      if (location.pathname.includes("admins")) {
+        res = await axios.get("/admin/get_all_admins");
+        setUsers(res.data.admins || []);
+      }
+      else {
+        res = await axios.get("/user/get_all_users");
+        setUsers(res.data.users || []);
+      }
+
     } catch (err) {
       console.log("Error fetching users:", err);
     } finally {
@@ -48,45 +68,55 @@ const UsersPage = () => {
     }
   };
 
+
   useEffect(() => {
     getUsers();
-  }, []);
+  }, [location.pathname]);
 
-  // Filtered users based on search and filters
-  const filteredUsers = users.filter(user => {
-    const matchesSearch = user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         user.email.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesType = !selectedType || user.type === selectedType;
+
+  // FILTER USERS
+  const filteredUsers = users.filter((user) => {
+
+    const matchesSearch =
+      user.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.email?.toLowerCase().includes(searchTerm.toLowerCase());
+
     const matchesStatus = !selectedStatus || user.status === selectedStatus;
 
-    return matchesSearch && matchesType && matchesStatus;
+    return matchesSearch && matchesStatus;
+
   });
 
-  // handle form change
   const handleChange = (e) => {
+
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
+
   };
 
-  // open add modal
   const openAddModal = () => {
+
     setEditId(null);
+
     setFormData({
       name: "",
       email: "",
       phone: "",
       password: "",
-      type: "student",
+      type: isAdminPage ? "admin" : "user",
       status: "active",
     });
+
     setShowModal(true);
+
   };
 
-  // open edit modal
   const openEditModal = (user) => {
+
     setEditId(user.id);
+
     setFormData({
       name: user.name,
       email: user.email,
@@ -95,72 +125,102 @@ const UsersPage = () => {
       type: user.type,
       status: user.status,
     });
+
     setShowModal(true);
+
   };
 
-  // submit form
   const handleSubmit = async (e) => {
+
     e.preventDefault();
 
     try {
+
       if (editId) {
+
         await axios.put(`/admin/update_user/${editId}`, formData);
-        alert("User updated successfully!");
+        alert("User updated successfully");
+
       } else {
+
         await axios.post("/admin/add_new_user", formData);
-        alert("User added successfully!");
+        alert("User added successfully");
+
       }
 
       setShowModal(false);
       getUsers();
+
     } catch (err) {
-      console.error("Error:", err);
+
+      console.error(err);
       alert("Failed to save user");
+
     }
+
   };
 
-  // delete user
-  const handleDelete = async (userId) => {
+  const handleDelete = async (id) => {
+
     try {
-      await axios.delete(`/admin/delete_user/${userId}`);
-      getUsers();
+
+      await axios.delete(`/admin/delete_user/${id}`);
+      alert("User deleted successfully");
+
       setDeleteConfirm(null);
-      alert("User deleted successfully!");
+      getUsers();
+
     } catch (err) {
-      console.error("Delete failed:", err);
-      alert("Failed to delete user");
+
+      console.error(err);
+      alert("Delete failed");
+
     }
+
   };
 
   const getStatusBadge = (status) => {
-    return status === 'active' ? (
+
+    return status === "active" ? (
+
       <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium bg-green-500/10 border border-green-500/20 text-green-400">
         <FaCheckCircle className="w-3 h-3" />
         Active
       </span>
+
     ) : (
+
       <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium bg-red-500/10 border border-red-500/20 text-red-400">
         <FaTimesCircle className="w-3 h-3" />
         Inactive
       </span>
+
     );
+
   };
 
   const getTypeBadge = (type) => {
-    return type === 'admin' ? (
+
+    return type === "admin" ? (
+
       <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium bg-yellow-500/10 border border-yellow-500/20 text-yellow-400">
         <FaCrown className="w-3 h-3" />
         Admin
       </span>
+
     ) : (
+
       <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium bg-blue-500/10 border border-blue-500/20 text-blue-400">
         <FaUserGraduate className="w-3 h-3" />
-        Student
+        User
       </span>
+
     );
+
   };
 
   if (loading) {
+
     return (
       <div className="max-w-7xl mx-auto space-y-8">
         <div className="glass-card p-12 rounded-3xl text-center">
@@ -170,19 +230,25 @@ const UsersPage = () => {
         </div>
       </div>
     );
+
   }
 
   return (
+
     <div className="max-w-7xl mx-auto space-y-8">
+
       {/* Header */}
       <div className="glass-card p-8 rounded-3xl">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-4">
-            <FaUsers className="w-8 h-8 text-primary-400" />
+            {isAdminPage ?
+              <FaCrown className="w-8 h-8 text-yellow-400" /> :
+              <FaUsers className="w-8 h-8 text-primary-400" />
+            }
             <div>
-              <h1 className="text-3xl font-bold text-white">User Management</h1>
+              <h1 className="text-3xl font-bold text-white">{pageTitle}</h1>
               <p className="text-neutral-300 mt-1">
-                View and manage all registered users in the system
+                {isAdminPage ? "Manage administrator accounts and permissions" : "View and manage all registered users in the system"}
               </p>
             </div>
           </div>
@@ -192,12 +258,12 @@ const UsersPage = () => {
             className="btn btn-primary flex items-center gap-2 px-6 py-3 rounded-xl hover:scale-105 smooth-transition"
           >
             <FaPlus className="w-4 h-4" />
-            Add User
+            {addButtonText}
           </button>
         </div>
 
         {/* Filters */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="relative">
             <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 w-4 h-4" />
             <input
@@ -212,24 +278,11 @@ const UsersPage = () => {
           <div className="relative">
             <FaFilter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 w-4 h-4" />
             <select
-              value={selectedType}
-              onChange={(e) => setSelectedType(e.target.value)}
-              className="w-full bg-white/10 text-white border border-white/20 rounded-lg pl-10 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-400 transition-all"
-            >
-              <option value="">All Types</option>
-              <option value="admin" className="bg-slate-800 text-white">Administrator</option>
-              <option value="student" className="bg-slate-800 text-white">Student</option>
-            </select>
-          </div>
-
-          <div className="relative">
-            <FaFilter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 w-4 h-4" />
-            <select
               value={selectedStatus}
               onChange={(e) => setSelectedStatus(e.target.value)}
               className="w-full bg-white/10 text-white border border-white/20 rounded-lg pl-10 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-400 transition-all"
             >
-              <option value="">All Status</option>
+              <option value="" className="bg-slate-800 text-white">All Status</option>
               <option value="active" className="bg-slate-800 text-white">Active</option>
               <option value="inactive" className="bg-slate-800 text-white">Inactive</option>
             </select>
@@ -260,10 +313,10 @@ const UsersPage = () => {
                       <FaExclamationTriangle className="w-12 h-12 text-neutral-400" />
                       <div>
                         <h3 className="text-lg font-semibold text-white mb-1">
-                          {searchTerm || selectedType || selectedStatus ? "No Users Found" : "No Users Available"}
+                          {searchTerm || selectedStatus ? "No Users Found" : emptyText}
                         </h3>
                         <p className="text-neutral-400 text-sm">
-                          {searchTerm || selectedType || selectedStatus
+                          {searchTerm || selectedStatus
                             ? "Try adjusting your search or filter criteria"
                             : "No users have been registered yet"}
                         </p>
@@ -282,7 +335,7 @@ const UsersPage = () => {
                       <div className="flex items-center gap-3">
                         <div className="w-10 h-10 bg-primary-500/20 rounded-full flex items-center justify-center">
                           <span className="text-primary-400 font-semibold text-sm">
-                            {user.name.charAt(0).toUpperCase()}
+                            {user.name?.charAt(0).toUpperCase()}
                           </span>
                         </div>
                         <div>
@@ -346,9 +399,12 @@ const UsersPage = () => {
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4 overflow-y-auto">
           <div className="bg-slate-800/95 backdrop-blur-xl border border-slate-600/50 p-8 rounded-3xl max-w-md w-full mx-4 my-8 shadow-2xl">
             <div className="flex items-center gap-3 mb-6">
-              <FaUsers className="w-6 h-6 text-primary-400" />
+              {isAdminPage ?
+                <FaCrown className="w-6 h-6 text-yellow-400" /> :
+                <FaUsers className="w-6 h-6 text-primary-400" />
+              }
               <h3 className="text-xl font-semibold text-white">
-                {editId ? "Edit User" : "Add New User"}
+                {editId ? "Edit User" : `Add New ${isAdminPage ? "Admin" : "User"}`}
               </h3>
             </div>
 
@@ -424,7 +480,7 @@ const UsersPage = () => {
                   onChange={handleChange}
                   className="w-full bg-white/10 text-white border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-400 transition-all"
                 >
-                  <option value="student" className="bg-slate-800 text-white">Student</option>
+                  <option value="user" className="bg-slate-800 text-white">User</option>
                   <option value="admin" className="bg-slate-800 text-white">Administrator</option>
                 </select>
               </div>
@@ -456,7 +512,7 @@ const UsersPage = () => {
                   type="submit"
                   className="btn btn-primary flex-1"
                 >
-                  {editId ? "Update User" : "Add User"}
+                  {editId ? "Update User" : `Add ${isAdminPage ? "Admin" : "User"}`}
                 </button>
               </div>
             </form>
@@ -492,8 +548,11 @@ const UsersPage = () => {
           </div>
         </div>
       )}
+
     </div>
+
   );
+
 };
 
 export default UsersPage;

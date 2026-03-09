@@ -24,10 +24,10 @@ const Sidebar = ({ role }) => {
       { name: "Exam Categories", path: "/superadmin/exam-categories", icon: FaBook },
       // { name: "Languages", path: "/superadmin/languages", icon: FaTools },
       { name: "Admins Management", path: "/superadmin/admins", icon: FaUsers },
-      { name: "Students Management", path: "/superadmin/students", icon: FaUserCog },
+      { name: "Users Management", path: "/superadmin/users", icon: FaUserCog },
       { name: "Audio Library", path: "/superadmin/audio-library", icon: FaMicrophone },
-      { name: "Reports", path: "/superadmin/reports", icon: FaFileAlt },
-      { name: "Analytics", path: "/superadmin/analytics", icon: FaChartLine },
+      // { name: "Reports", path: "/superadmin/reports", icon: FaFileAlt },
+      // { name: "Analytics", path: "/superadmin/analytics", icon: FaChartLine },
       { name: "System Settings", path: "/superadmin/settings", icon: FaCogs }
     ],
     admin: [
