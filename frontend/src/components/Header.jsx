@@ -3,18 +3,19 @@ import React, { useState } from "react";
 import { FaSignOutAlt, FaBars, FaTimes, FaUser, FaCog } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useUser } from '../context/UserContext';
 
 const Header = ({ userName }) => {
   const navigate = useNavigate();
+  const { logout } = useUser();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleLogout = async () => {
     try {
       const response = await axios.post('/logout', {}, { withCredentials: true });
 
-      localStorage.removeItem('accessToken');
-      localStorage.removeItem('refreshToken');
-      localStorage.removeItem('user_info');
+      // Use the context logout function to clear user state
+      logout();
 
       toast.success(response.data.message || "Logged out successfully");
 

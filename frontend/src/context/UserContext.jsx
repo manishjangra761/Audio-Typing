@@ -22,6 +22,21 @@ export const UserProvider = ({ children }) => {
       }
         }, []);
 
+  // Listen for storage changes (when user logs in from another tab/window)
+  useEffect(() => {
+    const handleStorageChange = (e) => {
+      if (e.key === 'user_info') {
+        if (e.newValue) {
+          setUser(JSON.parse(e.newValue));
+        } else {
+          setUser(null);
+        }
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, []);
 
   const logout = () => {
     setUser(null);
@@ -31,7 +46,7 @@ export const UserProvider = ({ children }) => {
   };
 
   return (
-    <UserContext.Provider value={{ user, logout }}>
+    <UserContext.Provider value={{ user, setUser, logout }}>
       {children}
     </UserContext.Provider>
   );

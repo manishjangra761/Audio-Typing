@@ -5,10 +5,12 @@ import axios from "../services/api";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom'
+import { useUser } from '../context/UserContext';
 
 const Login = () => {
 
   const navigate = useNavigate();
+  const { setUser } = useUser();
   const [loading, setLoading] = useState(false);
 
   const [data, setData] = useState({
@@ -49,6 +51,10 @@ const Login = () => {
         localStorage.setItem('accessToken', response.data.accessToken);
         localStorage.setItem('refreshToken', response.data.refreshToken);
         localStorage.setItem('user_info', JSON.stringify(response.data.user));
+
+        // Update the user context immediately
+        setUser(response.data.user);
+
         if(response.data.user.role === 'admin') navigate('/admin');
         if(response.data.user.role === 'super_admin') navigate('/superadmin');
         if(response.data.user.role === 'user') navigate('/student');
