@@ -7,6 +7,7 @@ import AboutPage from "./components/AboutPage";
 import ProtectedRoute from "./components/ProtectedRoutes";
 import StudentRoutes from "./components/Dashboard/Student Routes/StudentRoutes";
 import AdminRoutes from "./components/Dashboard/Admin Routes/AdminRoutes";
+import SuperAdminRoutes from "./components/Dashboard/Super Admin Routes/SuperAdminRoutes";
 import { UserProvider } from "./context/UserContext";
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
             <Route path="/about" element={<AboutPage />} />
             <Route path="/student/*" element={<ProtectedRoute><StudentRoutes /></ProtectedRoute>} />
             <Route path="/admin/*" element={<ProtectedRoute><AdminRoutes /></ProtectedRoute>} />
+            <Route path="/superadmin/*" element={<ProtectedRoute><SuperAdminRoutes /></ProtectedRoute>} />
             
           </Routes>
         </div>

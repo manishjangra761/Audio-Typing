@@ -50,7 +50,7 @@ const Login = () => {
         localStorage.setItem('refreshToken', response.data.refreshToken);
         localStorage.setItem('user_info', JSON.stringify(response.data.user));
         if(response.data.user.role === 'admin') navigate('/admin');
-        if(response.data.user.role === 'super_admin') navigate('/super_admin');
+        if(response.data.user.role === 'super_admin') navigate('/superadmin');
         if(response.data.user.role === 'user') navigate('/student');
       } else {
         toast.error(response.message || response.data.message);

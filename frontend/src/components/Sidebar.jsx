@@ -22,7 +22,7 @@ const Sidebar = ({ role }) => {
     super_admin: [
       { name: "Dashboard", path: "/superadmin", icon: FaChartLine },
       { name: "Exam Categories", path: "/superadmin/exam-categories", icon: FaBook },
-      { name: "Languages", path: "/superadmin/languages", icon: FaTools },
+      // { name: "Languages", path: "/superadmin/languages", icon: FaTools },
       { name: "Admins Management", path: "/superadmin/admins", icon: FaUsers },
       { name: "Students Management", path: "/superadmin/students", icon: FaUserCog },
       { name: "Audio Library", path: "/superadmin/audio-library", icon: FaMicrophone },

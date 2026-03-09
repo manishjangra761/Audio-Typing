@@ -7,7 +7,7 @@ import AdminResultPage from "./AdminResultPage";
 import ResultDetails from "../Student Routes/ResultDetails";
 import UsersPage from "./UsersPage";
 
-const StudentRoutes = () => {
+const AdminRoutes = () => {
   return (
     <DashboardLayout>
       <Routes>
@@ -23,4 +23,4 @@ const StudentRoutes = () => {
   );
 };
 
-export default StudentRoutes;
+export default AdminRoutes;
