@@ -6,6 +6,7 @@ import ManageAudio from "./ManageAudio";
 import AdminResultPage from "./AdminResultPage";
 import ResultDetails from "../Student Routes/ResultDetails";
 import UsersPage from "./UsersPage";
+import ProfilePage from "../../ProfilePage";
 
 const AdminRoutes = () => {
   return (
@@ -17,6 +18,7 @@ const AdminRoutes = () => {
         <Route path="manage-audio" element={<ManageAudio />} />
         <Route path="results" element={<AdminResultPage />} />
         <Route path="results/:id" element={<ResultDetails />} />
+        <Route path="profile" element={<ProfilePage />} />
       
       </Routes>
     </DashboardLayout>

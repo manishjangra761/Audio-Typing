@@ -16,6 +16,7 @@ import {
   FaExclamationTriangle
 } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const UsersPage = () => {
 
@@ -139,12 +140,12 @@ const UsersPage = () => {
       if (editId) {
 
         await axios.put(`/admin/update_user/${editId}`, formData);
-        alert("User updated successfully");
+        toast("User updated successfully");
 
       } else {
 
         await axios.post("/admin/add_new_user", formData);
-        alert("User added successfully");
+        toast("User added successfully");
 
       }
 
@@ -154,7 +155,7 @@ const UsersPage = () => {
     } catch (err) {
 
       console.error(err);
-      alert("Failed to save user");
+      toast("Failed to save user");
 
     }
 
@@ -165,7 +166,7 @@ const UsersPage = () => {
     try {
 
       await axios.delete(`/admin/delete_user/${id}`);
-      alert("User deleted successfully");
+      toast("User deleted successfully");
 
       setDeleteConfirm(null);
       getUsers();
@@ -173,7 +174,7 @@ const UsersPage = () => {
     } catch (err) {
 
       console.error(err);
-      alert("Delete failed");
+      toast("Delete failed");
 
     }
 

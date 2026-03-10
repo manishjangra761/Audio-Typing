@@ -6,6 +6,7 @@ import PracticePage from "../Student Routes/PracticePage";
 import PracticePlayer from "../Student Routes/PracticePlayer";
 import ResultPage from "../Student Routes/ResultPage";
 import ResultDetails from "../Student Routes/ResultDetails";
+import ProfilePage from "../../ProfilePage";
 
 const StudentRoutes = () => {
   return (
@@ -18,6 +19,7 @@ const StudentRoutes = () => {
         <Route path="results/:id" element={<ResultDetails />} />
         <Route path="history" element={<ResultPage />} />
         <Route path="history/:id" element={<ResultDetails />} />
+        <Route path="profile" element={<ProfilePage />} />
       </Routes>
     </DashboardLayout>
   );

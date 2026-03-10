@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "../../../services/api";
+import { toast } from "react-toastify";
 import { FaCloudUploadAlt, FaFileAudio, FaTag, FaLanguage, FaClock, FaFileAlt, FaCheckCircle, FaExclamationTriangle } from "react-icons/fa";
 
 const UploadAudioPage = () => {
@@ -126,11 +127,11 @@ const UploadAudioPage = () => {
       setUploadProgress(0);
 
       // Show success message (you might want to use a toast library)
-      alert("Audio Uploaded Successfully");
+      toast("Audio Uploaded Successfully");
 
     } catch (err) {
       console.error(err);
-      alert("Upload failed: " + (err.response?.data?.message || err.message));
+      toast("Upload failed: " + (err.response?.data?.message || err.message));
     } finally {
       setIsUploading(false);
     }

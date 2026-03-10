@@ -28,7 +28,8 @@ const Sidebar = ({ role }) => {
       { name: "Audio Library", path: "/superadmin/audio-library", icon: FaMicrophone },
       // { name: "Reports", path: "/superadmin/reports", icon: FaFileAlt },
       // { name: "Analytics", path: "/superadmin/analytics", icon: FaChartLine },
-      { name: "System Settings", path: "/superadmin/settings", icon: FaCogs }
+      { name: "Profile", path: "/superadmin/profile", icon: FaUserCog },
+      // { name: "System Settings", path: "/superadmin/settings", icon: FaCogs }
     ],
     admin: [
       { name: "Dashboard", path: "/admin", icon: FaChartLine },
@@ -36,6 +37,7 @@ const Sidebar = ({ role }) => {
       { name: "Upload Audio", path: "/admin/upload-audio", icon: FaMicrophone },
       { name: "Manage Audio", path: "/admin/manage-audio", icon: FaBook },
       { name: "Results", path: "/admin/results", icon: FaFileAlt },
+      { name: "Profile", path: "/admin/profile", icon: FaUserCog },
     ],
     user: [
       { name: "Dashboard", path: "/student", icon: FaChartLine },

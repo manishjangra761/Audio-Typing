@@ -6,7 +6,7 @@ exports.addNewCategory = async (req, res) => {
         const { name } = req.body;
         const newCategory = await db.Category.create({ name });
         if (newCategory) {
-            return res.status(200).json({ message: "Category added successfully" });
+            return res.status(200).json({ success:"true" ,message: "Category added successfully" });
         }
     } catch (err) {
         console.log(err)

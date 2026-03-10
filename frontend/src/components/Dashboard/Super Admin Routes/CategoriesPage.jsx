@@ -8,6 +8,7 @@ import {
   FaTrash,
   FaEdit
 } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const CategoriesPage = () => {
   const [categoryName, setCategoryName] = useState("");
@@ -47,11 +48,12 @@ const CategoriesPage = () => {
       if (res.data?.success) {
         setCategoryName("");
         fetchCategories();
-        alert("Category added successfully!");
+        setShowModal(false);
+        toast("Category added successfully!");
       }
     } catch (error) {
       console.error("Error adding category", error);
-      alert("Failed to add category");
+      toast("Failed to add category");
     }
   };
 
@@ -68,11 +70,11 @@ const CategoriesPage = () => {
         setShowModal(false);
         setEditId(null);
         fetchCategories();
-        alert("Category updated successfully!");
+        toast("Category updated successfully!");
       }
     } catch (error) {
       console.error("Error updating category", error);
-      alert("Failed to update category");
+      toast("Failed to update category");
     }
   };
 
@@ -81,10 +83,10 @@ const CategoriesPage = () => {
       await axios.delete(`/admin/delete_category/${id}`);
       fetchCategories();
       setDeleteConfirm(null);
-      alert("Category deleted successfully!");
+      toast("Category deleted successfully!");
     } catch (error) {
       console.error("Error deleting category", error);
-      alert("Failed to delete category");
+      toast("Failed to delete category");
     }
   };
 
@@ -146,7 +148,7 @@ const CategoriesPage = () => {
         </div>
 
         {/* Quick Add Form */}
-        <div className="flex gap-3">
+        {/* <div className="flex gap-3">
           <input
             type="text"
             placeholder="Enter category name..."
@@ -161,7 +163,7 @@ const CategoriesPage = () => {
           >
             Add
           </button>
-        </div>
+        </div> */}
       </div>
 
       {/* Categories Table */}

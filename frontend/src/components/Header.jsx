@@ -56,9 +56,9 @@ const Header = ({ userName }) => {
           </div>
 
           {/* Action Buttons */}
-          <button className="glass p-3 rounded-lg hover:glass-light smooth-transition text-neutral-300 hover:text-primary-400">
+          {/* <button className="glass p-3 rounded-lg hover:glass-light smooth-transition text-neutral-300 hover:text-primary-400">
             <FaCog className="w-5 h-5" />
-          </button>
+          </button> */}
 
           <button
             onClick={handleLogout}

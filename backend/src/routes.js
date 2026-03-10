@@ -28,6 +28,8 @@ router.get('/admin/get_all_admins', authMiddleware.authenticateJWT, authControll
 
 //all users apis
 router.get('/user/get_all_users', authMiddleware.authenticateJWT, userController.getAllUsers)
+router.get('/user/profile', authMiddleware.authenticateJWT, userController.getProfile)
+router.put('/user/profile', authMiddleware.authenticateJWT, userController.updateProfile)
 
 //for adding category
 router.post('/admin/add_new_category', authMiddleware.authenticateJWT, categoryController.addNewCategory)

@@ -16,6 +16,7 @@ import {
   FaExclamationTriangle,
   FaCheckCircle
 } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const ManageAudio = () => {
   const [audios, setAudios] = useState([]);
@@ -94,10 +95,10 @@ const ManageAudio = () => {
       setEditData({});
       fetchAudios();
       // Show success feedback (you might want to use a toast library)
-      alert("Audio updated successfully!");
+      toast("Audio updated successfully!");
     } catch (err) {
       console.log(err);
-      alert("Update failed: " + (err.response?.data?.message || err.message));
+      toast("Update failed: " + (err.response?.data?.message || err.message));
     }
   };
 
@@ -107,10 +108,10 @@ const ManageAudio = () => {
       await axios.delete(`/audio/delete_audio/${id}`);
       fetchAudios();
       setDeleteConfirm(null);
-      alert("Audio deleted successfully!");
+      toast("Audio deleted successfully!");
     } catch (err) {
       console.log(err);
-      alert("Delete failed: " + (err.response?.data?.message || err.message));
+      toast("Delete failed: " + (err.response?.data?.message || err.message));
     }
   };
 
