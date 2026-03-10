@@ -62,9 +62,10 @@ const ManageAudio = () => {
 
   // FILTERED AUDIOS
   const filteredAudios = audios.filter(audio => {
+    console.log(audio , ";;;;;")
     const matchesSearch = audio.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          audio.correct_text?.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = !selectedCategory || audio.category_id === parseInt(selectedCategory);
+    const matchesCategory = !selectedCategory || audio.Category.id === parseInt(selectedCategory);
     const matchesLanguage = !selectedLanguage || audio.language === selectedLanguage;
 
     return matchesSearch && matchesCategory && matchesLanguage;

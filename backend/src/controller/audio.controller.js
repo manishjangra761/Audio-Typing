@@ -76,7 +76,7 @@ exports.getAdminAllAudios = async (req, res) => {
       include: [
         {
           model: db.Category,
-          attributes: ["name"],   // 👈 Banking
+          attributes: ["id" ,"name"],   
         },
       ],
       order: [["title", "ASC"]],
