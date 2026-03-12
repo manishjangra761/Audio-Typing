@@ -22,7 +22,7 @@ const AuthLayout = ({ title, children }) => {
               </span>
             </h1>
             <p className="text-lg text-neutral-300 max-w-lg leading-relaxed">
-              Real exam conditions, instant feedback, and AI-powered progress tracking to accelerate your stenography skills.
+              Real exam conditions, and Real-time progress tracking to accelerate your stenography skills.
             </p>
           </div>
 
@@ -31,7 +31,7 @@ const AuthLayout = ({ title, children }) => {
             {[
               { icon: "⚡", title: "Real Exam Audio", desc: "Official test conditions" },
               { icon: "✨", title: "Instant Feedback", desc: "Know your mistakes immediately" },
-              { icon: "📊", title: "AI Progress Tracking", desc: "Smart improvement suggestions" },
+              // { icon: "📊", title: "AI Progress Tracking", desc: "Smart improvement suggestions" },
               { icon: "🎯", title: "Detailed Analytics", desc: "Speed, accuracy, weak areas" }
             ].map((feature, idx) => (
               <div 
@@ -76,7 +76,7 @@ const AuthLayout = ({ title, children }) => {
               </form>
 
               {/* Divider */}
-              <div className="relative">
+              {/* <div className="relative">
                 <div className="absolute inset-0 flex items-center">
                   <div className="w-full border-t border-white/10"></div>
                 </div>
@@ -85,15 +85,15 @@ const AuthLayout = ({ title, children }) => {
                     or continue with email
                   </span>
                 </div>
-              </div>
+              </div> */}
 
               {/* Social Login */}
-              <button type="button" className="w-full glass border border-white/20 px-4 py-3 rounded-xl font-semibold text-white hover:glass-light smooth-transition flex items-center justify-center gap-3">
+              {/* <button type="button" className="w-full glass border border-white/20 px-4 py-3 rounded-xl font-semibold text-white hover:glass-light smooth-transition flex items-center justify-center gap-3">
                 <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.657l-5.223-6.831-5.974 6.831H2.882l7.541-8.633L1.375 2.25h6.836l4.751 6.285 5.429-6.285zM17.7 19.5h1.849L6.375 4.121H4.35L17.7 19.5z"/>
                 </svg>
                 <span>Sign up with X</span>
-              </button>
+              </button> */}
 
               {/* Link text */}
               <p className="text-center text-sm text-neutral-400">

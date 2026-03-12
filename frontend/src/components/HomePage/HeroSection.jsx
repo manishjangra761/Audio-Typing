@@ -24,7 +24,7 @@ const HeroSection = () => {
                                 <span className="absolute inline-flex h-full w-full rounded-full bg-primary-400 opacity-75 animate-pulse"></span>
                                 <span className="relative inline-flex h-2 w-2 rounded-full bg-primary-500"></span>
                             </span>
-                            <span>Now with AI-Powered Feedback</span>
+                            <span>Test your skills with us</span>
                         </div>
 
                         {/* Headline */}
@@ -42,7 +42,7 @@ const HeroSection = () => {
 
                         {/* CTA Buttons */}
                         <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                            <a href="/practice" className="btn px-8 py-4 flex items-center justify-center gap-3 rounded-xl text-lg font-bold">
+                            <a href="/login" className="btn px-8 py-4 flex items-center justify-center gap-3 rounded-xl text-lg font-bold">
                                 <FaPlay className="w-5 h-5" />
                                 Start Practicing
                             </a>

@@ -94,7 +94,7 @@ const Register = () => {
                     <FaUser className="absolute left-4 top-1/2 -translate-y-1/2 text-primary-400 text-sm" />
                     <input 
                         type="text" 
-                        placeholder="John Doe" 
+                        placeholder="Your Name" 
                         name="name" 
                         value={data.name}
                         onChange={handleData}

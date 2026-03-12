@@ -10,7 +10,7 @@ const AboutHome = () => {
         },
         {
             icon: FaMagic,
-            title: "AI-Powered Analytics",
+            title: "Real-Time Analytics",
             description: "Get intelligent insights on your performance"
         },
         {
@@ -55,7 +55,7 @@ const AboutHome = () => {
                             "Advanced speed and performance tracking",
                             "Multi-language support (Hindi & English)",
                             "Fair testing with single-play audio",
-                            "AI-powered mistake analysis",
+                            "Live mistake analysis",
                             "Concentration & listening skill development"
                         ].map((feature, idx) => (
                             <div key={idx} className="flex items-start gap-3">

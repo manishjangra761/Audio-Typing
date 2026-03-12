@@ -89,7 +89,7 @@ const Contact = () => {
                                             <FaUser className="absolute left-4 top-1/2 transform -translate-y-1/2 text-primary-400" />
                                             <input
                                                 type="text"
-                                                placeholder="John Doe"
+                                                placeholder="Your Name"
                                                 value={formData.name}
                                                 onChange={(e) => setFormData({...formData, name: e.target.value})}
                                                 className="input-field pl-12"

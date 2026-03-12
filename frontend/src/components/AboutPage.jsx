@@ -26,14 +26,14 @@ const AboutPage = () => {
               <h1 className="text-6xl md:text-7xl font-bold text-white mb-6 leading-tight">
                 About Audio Typing
                 <span className="block mt-3 bg-gradient-to-r from-primary-400 via-accent-400 to-primary-500 bg-clip-text text-transparent">
-                  Master Stenography with AI
+                  Master Stenography with Us
                 </span>
               </h1>
               <p className="text-xl text-neutral-300 max-w-2xl mx-auto mb-8">
                 Practice smart. Type faster. Succeed confidently.
               </p>
               <a href="/register" className="btn px-8 py-4 inline-flex items-center gap-2 rounded-xl text-lg">
-                Start Free Practice <FaArrowRight className="w-4 h-4" />
+                Start Practice <FaArrowRight className="w-4 h-4" />
               </a>
             </section>
 
@@ -61,7 +61,7 @@ const AboutPage = () => {
                   <div className="glass p-6 rounded-2xl text-center hover:glass-light smooth-transition">
                     <FaChartLine className="w-8 h-8 text-primary-400 mx-auto mb-3" />
                     <h4 className="font-semibold text-white mb-2">Performance Tracking</h4>
-                    <p className="text-sm text-neutral-400">AI-powered analytics</p>
+                    <p className="text-sm text-neutral-400">Real-time analytics</p>
                   </div>
                 </div>
               </div>
@@ -111,7 +111,7 @@ const AboutPage = () => {
                 <h3 className="text-2xl font-bold text-white mb-4">Our Vision</h3>
                 <p className="text-neutral-300 leading-relaxed">
                   To build a trusted platform that bridges the gap between practice and real exams through 
-                  realistic preparation, AI-powered guidance, and community support.
+                  realistic preparation, and community support.
                 </p>
               </div>
             </section>
@@ -121,7 +121,7 @@ const AboutPage = () => {
               <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Ready to Improve Your Typing?</h2>
               <p className="text-lg text-neutral-300 mb-8">Join thousands of students mastering stenography</p>
               <a href="/register" className="btn px-8 py-4 inline-flex items-center gap-2 rounded-xl text-lg">
-                Try Free Practice <FaArrowRight className="w-4 h-4" />
+              Want to Explore <FaArrowRight className="w-4 h-4" />
               </a>
             </section>
 
