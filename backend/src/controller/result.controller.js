@@ -1,6 +1,7 @@
 const { raw } = require("express");
 const db = require("../../models");
 const { Op, fn, col } = require("sequelize");
+const { compareTexts } = require("../helpers/comparetext.helper");
 
 exports.addResult = async (req, res) => {
   try {
@@ -96,7 +97,7 @@ exports.getResult = async (req, res) => {
 
   try {
     const user_id = req.query.user_id ? req.query.user_id : req.user.user_id;
-    const { unique , audio_id } = req.query;
+    const { unique, audio_id } = req.query;
 
     let attempts;
 
@@ -119,7 +120,7 @@ exports.getResult = async (req, res) => {
         include: [
           {
             model: db.Audio,
-            attributes: ["title"]
+            attributes: ["title", "correct_text"]
           }
         ],
 
@@ -129,8 +130,8 @@ exports.getResult = async (req, res) => {
       });
 
     } else {
-      
-      whereCondition = {user_id};
+
+      whereCondition = { user_id };
       if (audio_id) {
         whereCondition.audio_id = audio_id;
       }
@@ -140,7 +141,7 @@ exports.getResult = async (req, res) => {
         include: [
           {
             model: db.Audio,
-            attributes: ["title"]
+            attributes: ["title", "correct_text"]
           }
         ],
         order: [["attempt_type", "DESC"]],
@@ -150,7 +151,14 @@ exports.getResult = async (req, res) => {
 
     }
 
-    return res.status(200).json({ attempts });
+    const result = attempts.map((attempt) => {
+      return {
+        ...attempt,
+        typed_text: compareTexts(attempt["Audio.correct_text"], attempt.typed_text)
+      };
+    });
+
+    return res.status(200).json({ attempts: result });
 
   } catch (err) {
     console.error(err);

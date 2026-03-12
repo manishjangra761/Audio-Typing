@@ -62,9 +62,9 @@ const ManageAudio = () => {
 
   // FILTERED AUDIOS
   const filteredAudios = audios.filter(audio => {
-    console.log(audio , ";;;;;")
+    console.log(audio, ";;;;;")
     const matchesSearch = audio.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         audio.correct_text?.toLowerCase().includes(searchTerm.toLowerCase());
+      audio.correct_text?.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = !selectedCategory || audio.Category.id === parseInt(selectedCategory);
     const matchesLanguage = !selectedLanguage || audio.language === selectedLanguage;
 
@@ -187,7 +187,7 @@ const ManageAudio = () => {
               onChange={(e) => setSelectedCategory(e.target.value)}
               className="w-full bg-white/10 text-white border border-white/20 rounded-lg pl-10 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-400 transition-all"
             >
-              <option value="">All Categories</option>
+              <option value="" className="bg-slate-800 text-white">All Categories</option>
               {categories.map((cat) => (
                 <option key={cat.id} value={cat.id} className="bg-slate-800 text-white">
                   {cat.name}

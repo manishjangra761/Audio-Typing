@@ -145,12 +145,18 @@ const ResultDetails = () => {
                     <FaKeyboard className="w-6 h-6 text-primary-400" />
                     Your Typed Text
                 </h3>
+
                 <div className="bg-neutral-900/50 rounded-xl p-6 border border-neutral-700">
-                    <p className="text-white font-mono text-sm leading-relaxed whitespace-pre-wrap">
-                        {result.typed_text || "No typed text available"}
-                    </p>
+                    <div
+                        className="text-white font-mono text-sm leading-relaxed"
+                        dangerouslySetInnerHTML={{
+                            __html: result?.typed_text || "No typed text available"
+                        }}
+                    />
                 </div>
             </div>
+
+
 
             {/* Timestamp */}
             <div className="glass-card p-6 rounded-2xl">
