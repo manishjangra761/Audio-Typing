@@ -59,7 +59,7 @@ const Register = () => {
                 name: data.name,
                 email: data.email,
                 phone: data.phone,
-                pass: data.password
+                password: data.password
             });
 
             if (response.data) {

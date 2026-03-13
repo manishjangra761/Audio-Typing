@@ -29,6 +29,10 @@ const UsersPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [editId, setEditId] = useState(null);
   const [deleteConfirm, setDeleteConfirm] = useState(null);
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+  const [originalStatus, setOriginalStatus] = useState(null);
+
+
 
   const [formData, setFormData] = useState({
     name: "",
@@ -47,21 +51,47 @@ const UsersPage = () => {
   const emptyText = isAdminPage ? "No Admins Found" : "No Users Found";
 
   // FETCH USERS BASED ON LOGGED USER TYPE
-  const getUsers = async () => {
+  // const getUsers = async () => {
+  //   try {
+  //     setLoading(true);
+
+  //     let res;
+
+  //     if (location.pathname.includes("admins")) {
+  //       res = await axios.get("/admin/get_all_admins");
+  //       setUsers(res.data.admins || []);
+  //     }
+  //     else {
+  //       res = await axios.get("/user/get_all_users");
+  //       setUsers(res.data.users || []);
+  //     }
+
+  //   } catch (err) {
+  //     console.log("Error fetching users:", err);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
+  const getUsers = async (search = "", status = "") => {
     try {
       setLoading(true);
 
-      let res;
+      let url = "";
 
       if (location.pathname.includes("admins")) {
-        res = await axios.get("/admin/get_all_admins");
-        setUsers(res.data.admins || []);
-      }
-      else {
-        res = await axios.get("/user/get_all_users");
-        setUsers(res.data.users || []);
+        url = `/admin/get_all_admins?search=${search}&status=${status}`;
+      } else {
+        url = `/user/get_all_users?search=${search}&status=${status}`;
       }
 
+      const res = await axios.get(url);
+
+      if (location.pathname.includes("admins")) {
+        setUsers(res.data.admins || []);
+      } else {
+        setUsers(res.data.users || []);
+      }
     } catch (err) {
       console.log("Error fetching users:", err);
     } finally {
@@ -69,24 +99,30 @@ const UsersPage = () => {
     }
   };
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(searchTerm);
+    }, 500); // 500ms debounce delay
+
+    return () => clearTimeout(timer);
+  }, [searchTerm]);
 
   useEffect(() => {
     getUsers();
   }, [location.pathname]);
 
+  useEffect(() => {
 
-  // FILTER USERS
-  const filteredUsers = users.filter((user) => {
+    if (debouncedSearch.length >= 3 || selectedStatus !== "") {
+      getUsers(debouncedSearch, selectedStatus);
+    }
 
-    const matchesSearch =
-      user.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      user.email?.toLowerCase().includes(searchTerm.toLowerCase());
+    if (debouncedSearch.length === 0 && selectedStatus === "") {
+      getUsers();
+    }
 
-    const matchesStatus = !selectedStatus || user.status === selectedStatus;
+  }, [debouncedSearch, selectedStatus]);
 
-    return matchesSearch && matchesStatus;
-
-  });
 
   const handleChange = (e) => {
 
@@ -117,6 +153,7 @@ const UsersPage = () => {
   const openEditModal = (user) => {
 
     setEditId(user.id);
+    setOriginalStatus(user.status); // store original status
 
     setFormData({
       name: user.name,
@@ -130,6 +167,7 @@ const UsersPage = () => {
     setShowModal(true);
 
   };
+
 
   const handleSubmit = async (e) => {
 
@@ -189,11 +227,18 @@ const UsersPage = () => {
         Active
       </span>
 
-    ) : (
+    ) : status === "inactive" ? (
 
       <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium bg-red-500/10 border border-red-500/20 text-red-400">
         <FaTimesCircle className="w-3 h-3" />
         Inactive
+      </span>
+
+    ) : (
+
+      <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium bg-red-500/10 border border-red-500/20 text-red-400">
+        <FaTimesCircle className="w-3 h-3" />
+        Unapproved
       </span>
 
     );
@@ -272,8 +317,9 @@ const UsersPage = () => {
               placeholder="Search by name or email..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-white/10 text-white placeholder-neutral-400 border border-white/20 rounded-lg pl-10 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-400 transition-all"
+              className="w-full bg-white/10 text-white placeholder-neutral-400 border border-white/20 rounded-lg pl-10 pr-4 py-3"
             />
+
           </div>
 
           <div className="relative">
@@ -286,6 +332,7 @@ const UsersPage = () => {
               <option value="" className="bg-slate-800 text-white">All Status</option>
               <option value="active" className="bg-slate-800 text-white">Active</option>
               <option value="inactive" className="bg-slate-800 text-white">Inactive</option>
+              <option value="unapproved" className="bg-slate-800 text-white">Unapproved</option>
             </select>
           </div>
         </div>
@@ -307,7 +354,7 @@ const UsersPage = () => {
             </thead>
 
             <tbody className="divide-y divide-white/10">
-              {filteredUsers.length === 0 ? (
+              {users.length === 0 ? (
                 <tr>
                   <td colSpan="6" className="px-6 py-12 text-center">
                     <div className="flex flex-col items-center gap-4">
@@ -326,7 +373,7 @@ const UsersPage = () => {
                   </td>
                 </tr>
               ) : (
-                filteredUsers.map((user) => (
+                users.map((user) => (
                   <tr key={user.id} className="hover:bg-white/5 transition-colors">
                     <td className="px-6 py-4">
                       <span className="text-white font-mono text-sm">#{user.id}</span>
@@ -496,9 +543,19 @@ const UsersPage = () => {
                   onChange={handleChange}
                   className="w-full bg-white/10 text-white border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-400 transition-all"
                 >
+
+                  {originalStatus === "unapproved" && (
+                    <option value="unapproved" className="bg-slate-800 text-white">
+                      Unapproved
+                    </option>
+                  )}
+
                   <option value="active" className="bg-slate-800 text-white">Active</option>
                   <option value="inactive" className="bg-slate-800 text-white">Inactive</option>
+
                 </select>
+
+
               </div>
 
               <div className="flex gap-3 pt-4">

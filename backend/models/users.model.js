@@ -38,9 +38,9 @@ module.exports = (sequelize, DataTypes) => {
       },
 
       status: {
-        type: DataTypes.ENUM("active", "inactive"),
+        type: DataTypes.ENUM("active", "inactive" , "unapproved"),
         allowNull: false,
-        defaultValue: "inactive",
+        defaultValue: "unapproved",
       },
 
       reset_token: {

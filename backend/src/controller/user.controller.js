@@ -1,20 +1,78 @@
 const { User } = require("../../models");
 const { Op } = require("sequelize");
 
+// exports.getAllUsers = async (req, res) => {
+//     try {
+//         const users = await User.findAll({
+//             where: {
+//                 type: "user",
+//                 status: {
+//                     [Op.ne]: "unapproved"
+//                 }
+//             },
+//             attributes: ["id", "name", "email", "phone", "type", "status"]
+//         });
+//         return res.status(200).json({ users });
+//     } catch (err) {
+//         console.log(err)
+//         return res.status(500).json({ message: "Internal server error" });
+//     }
+// }
+
+
 exports.getAllUsers = async (req, res) => {
     try {
+
+        const { status, search } = req.query;
+
+        let whereCondition = {
+            type: "user"
+        };
+
+        // STATUS FILTER
+        if (status === "unapproved") {
+            whereCondition.status = "unapproved";
+        }
+        else if (status === "active" || status === "inactive") {
+            whereCondition.status = status;
+        }
+        else {
+            whereCondition.status = {
+                [Op.ne]: "unapproved"
+            };
+        }
+
+        // SEARCH FILTER
+        if (search && search.length >= 3) {
+            whereCondition[Op.or] = [
+                {
+                    name: {
+                        [Op.like]: `%${search}%`
+                    }
+                },
+                {
+                    email: {
+                        [Op.like]: `%${search}%`
+                    }
+                }
+            ];
+        }
+
         const users = await User.findAll({
-            where: {
-                type: "user"
-            },
+            where: whereCondition,
             attributes: ["id", "name", "email", "phone", "type", "status"]
         });
+
         return res.status(200).json({ users });
+
     } catch (err) {
-        console.log(err)
+        console.log(err);
         return res.status(500).json({ message: "Internal server error" });
     }
-}
+};
+
+
+
 
 exports.getProfile = async (req, res) => {
     try {

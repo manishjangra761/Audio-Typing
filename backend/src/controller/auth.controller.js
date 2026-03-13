@@ -115,7 +115,7 @@ exports.register = async (req, res) => {
             phone,
             password: newHashedPassword,
             type: "user",
-            status: "inactive",
+            status: "unapproved",
         });
 
         if (newAdmin) {
