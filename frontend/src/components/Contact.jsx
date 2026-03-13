@@ -4,7 +4,12 @@ import { MdLocationPin, MdCall, MdEmail } from "react-icons/md";
 import Navbar from "./HomePage/Navbar";
 
 const Contact = () => {
-    const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        phone: '',
+        message: ''
+    });
     const [submitted, setSubmitted] = useState(false);
 
     const handleSubmit = (e) => {
@@ -12,7 +17,7 @@ const Contact = () => {
         console.log(formData);
         setSubmitted(true);
         setTimeout(() => {
-            setFormData({ name: '', email: '', message: '' });
+            setFormData({ name: '', email: '', phone: '', message: '' });
             setSubmitted(false);
         }, 3000);
     };
@@ -32,12 +37,12 @@ const Contact = () => {
                 <div className="absolute top-1/2 right-1/3 w-72 h-72 bg-primary-600/5 rounded-full mix-blend-screen filter blur-3xl floating" style={{ animationDelay: '-2s' }}></div>
             </div>
 
-            <Navbar type= "contact"/>
+            <Navbar type="contact" />
 
             {/* Main Content */}
             <div className="relative pt-24 pb-12 px-4 md:px-8 lg:px-12">
                 <div className="max-w-7xl mx-auto">
-                    
+
                     {/* Header */}
                     <div className="text-center mb-16 animate-fadeInUp">
                         <h1 className="text-5xl md:text-6xl font-bold text-white mb-4 leading-tight">
@@ -91,7 +96,7 @@ const Contact = () => {
                                                 type="text"
                                                 placeholder="Your Name"
                                                 value={formData.name}
-                                                onChange={(e) => setFormData({...formData, name: e.target.value})}
+                                                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                                 className="input-field pl-12"
                                                 required
                                             />
@@ -107,12 +112,35 @@ const Contact = () => {
                                                 type="email"
                                                 placeholder="john@example.com"
                                                 value={formData.email}
-                                                onChange={(e) => setFormData({...formData, email: e.target.value})}
+                                                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                                 className="input-field pl-12"
                                                 required
                                             />
                                         </div>
                                     </div>
+
+                                    {/* Phone Input */}
+                                    <div className="relative">
+                                        <label className="block text-sm font-semibold text-neutral-300 mb-2">
+                                            Phone Number
+                                        </label>
+
+                                        <div className="relative">
+                                            <MdCall className="absolute left-4 top-1/2 transform -translate-y-1/2 text-primary-400" />
+
+                                            <input
+                                                type="tel"
+                                                placeholder="+91 9876543210"
+                                                value={formData.phone}
+                                                onChange={(e) =>
+                                                    setFormData({ ...formData, phone: e.target.value })
+                                                }
+                                                className="input-field pl-12"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+
 
                                     {/* Message Input */}
                                     <div className="relative">
@@ -122,7 +150,7 @@ const Contact = () => {
                                             <textarea
                                                 placeholder="Tell us what's on your mind..."
                                                 value={formData.message}
-                                                onChange={(e) => setFormData({...formData, message: e.target.value})}
+                                                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                                                 className="input-field pl-12 min-h-32 resize-none"
                                                 required
                                             ></textarea>
