@@ -8,11 +8,14 @@ const forgetPasswordController = require("./controller/forgetPassword.controller
 const categoryController = require("./controller/category.controller");
 const audioController = require("./controller/audio.controller");
 const resultController = require("./controller/result.controller");
+const messageController = require("./controller/message.controller");
 
 router.post("/add_super_admin", authController.addSuperAdmin);
 router.post("/login", authController.login);
 router.post("/logout", authController.logout);
 router.post("/register", authController.register);
+//create contact message
+router.post('/contact', messageController.addNewMessage);
 
 //forget password
 router.post('/forget-password', forgetPasswordController.forgetPassword);
@@ -54,10 +57,17 @@ router.put('/audio/update_audio/:id', authMiddleware.authenticateJWT, audioContr
 router.get('/audio/get_audio/:id', authMiddleware.authenticateJWT, audioController.getAudio);
 
 //audio play record
-router.post('/student/add_result', authMiddleware.authenticateJWT, resultController.addResult)
+router.post('/student/add_result', authMiddleware.authenticateJWT, resultController.addResult);
 
 //see marks
-router.get('/student/get_result', authMiddleware.authenticateJWT, resultController.getResult)
+router.get('/student/get_result', authMiddleware.authenticateJWT, resultController.getResult);
+
+//get all contact messages
+router.get('/superadmin/get_all_messages', authMiddleware.authenticateJWT, messageController.getAllMessages);
+
+
+//change status read/unread
+router.put('/superadmin/update_message/:id', authMiddleware.authenticateJWT, messageController.markMessageRead);
 
 module.exports = router;
 

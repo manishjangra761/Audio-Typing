@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { FaUser, FaEnvelope, FaCommentDots } from "react-icons/fa";
 import { MdLocationPin, MdCall, MdEmail } from "react-icons/md";
 import Navbar from "./HomePage/Navbar";
+import axios from "../services/api";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Contact = () => {
     const [formData, setFormData] = useState({
@@ -12,15 +15,42 @@ const Contact = () => {
     });
     const [submitted, setSubmitted] = useState(false);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(formData);
-        setSubmitted(true);
-        setTimeout(() => {
-            setFormData({ name: '', email: '', phone: '', message: '' });
-            setSubmitted(false);
-        }, 3000);
+
+        const data = {
+            name: formData.name,
+            email: formData.email,
+            phone: formData.phone,
+            message: formData.message,
+            form_type: "contact"
+        };
+
+        try {
+
+            await axios.post("/contact", data);
+
+            toast.success("Message sent successfully!");
+
+            setSubmitted(true);
+
+            setFormData({
+                name: "",
+                email: "",
+                phone: "",
+                message: ""
+            });
+
+            setTimeout(() => {
+                setSubmitted(false);
+            }, 3000);
+
+        } catch (err) {
+            console.log(err);
+            toast.error("Failed to send message");
+        }
     };
+
 
     const contactInfo = [
         { icon: MdLocationPin, title: 'Location', detail: 'ABC XYZ Road, Haryana, India' },

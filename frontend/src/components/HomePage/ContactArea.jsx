@@ -1,13 +1,17 @@
 import React, { useState } from 'react'
 import { MdLocationPin, MdCall, MdEmail } from "react-icons/md";
 import { FaPaperPlane } from 'react-icons/fa';
+import axios from '../../services/api';
+import { toast } from 'react-toastify';
 
 const ContactArea = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
     message: ''
   });
+
 
   const [submitted, setSubmitted] = useState(false);
 
@@ -19,20 +23,47 @@ const ContactArea = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData({ name: '', email: '', message: '' });
-    }, 3000);
+
+    try {
+
+      const data = {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        message: formData.message,
+        form_type: "feedback"
+      };
+
+      await axios.post("/contact", data);
+
+      toast.success("Message sent successfully!");
+
+      setSubmitted(true);
+
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        message: ''
+      });
+
+      setTimeout(() => {
+        setSubmitted(false);
+      }, 3000);
+
+    } catch (err) {
+      console.log(err);
+      toast.error("Failed to send message");
+    }
   };
+
 
   return (
     <section className='w-full px-4 md:px-8 lg:px-12 py-20 md:py-32 space-y-16'>
       <div className="max-w-6xl mx-auto">
-        
+
         {/* Header */}
         <div className="text-center mb-16 space-y-4 animate-fadeInUp">
           <h2 className="text-5xl md:text-6xl font-bold text-white">
@@ -44,7 +75,7 @@ const ContactArea = () => {
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
-          
+
           {/* Contact Info Cards */}
           <div className="md:col-span-1 space-y-4">
             {[
@@ -66,7 +97,7 @@ const ContactArea = () => {
             ].map((item, idx) => {
               const Icon = item.icon;
               return (
-                <div 
+                <div
                   key={idx}
                   className="glass-card p-6 rounded-2xl space-y-3 hover:glass-light smooth-transition group animate-fadeInUp"
                   style={{ animationDelay: `${0.1 + idx * 0.1}s` }}
@@ -85,7 +116,7 @@ const ContactArea = () => {
           <div className="md:col-span-2">
             <div className="glass-card p-8 md:p-12 rounded-2xl space-y-6 animate-fadeInUp" style={{ animationDelay: '0.4s' }}>
               <h3 className="text-2xl font-bold text-white">Feedback Form</h3>
-              
+
               {submitted ? (
                 <div className="bg-green-500/20 border border-green-500/50 rounded-xl p-6 text-center space-y-2 animate-fadeIn">
                   <div className="text-4xl">✓</div>
@@ -97,12 +128,12 @@ const ContactArea = () => {
                   {/* Name Input */}
                   <div className="space-y-2">
                     <label className="text-sm font-semibold text-neutral-300">Full Name</label>
-                    <input 
-                      type="text" 
+                    <input
+                      type="text"
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      placeholder="Your name" 
+                      placeholder="Your name"
                       className="input-field w-full"
                       required
                     />
@@ -111,32 +142,50 @@ const ContactArea = () => {
                   {/* Email Input */}
                   <div className="space-y-2">
                     <label className="text-sm font-semibold text-neutral-300">Email Address</label>
-                    <input 
-                      type="email" 
+                    <input
+                      type="email"
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      placeholder="your@email.com" 
+                      placeholder="your@email.com"
                       className="input-field w-full"
                       required
                     />
                   </div>
 
+                  {/* Phone Input */}
+                  <div className="space-y-2">
+                    <label className="text-sm font-semibold text-neutral-300">
+                      Phone Number
+                    </label>
+
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      placeholder="+91 9876543210"
+                      className="input-field w-full"
+                      required
+                    />
+                  </div>
+
+
                   {/* Message Input */}
                   <div className="space-y-2">
                     <label className="text-sm font-semibold text-neutral-300">Message</label>
-                    <textarea 
+                    <textarea
                       name="message"
                       value={formData.message}
                       onChange={handleChange}
-                      placeholder="Tell us what's on your mind..." 
+                      placeholder="Tell us what's on your mind..."
                       className="input-field w-full h-32 resize-none"
                       required
                     ></textarea>
                   </div>
 
                   {/* Submit Button */}
-                  <button 
+                  <button
                     type="submit"
                     className="btn w-full py-3 flex items-center justify-center gap-2 font-semibold rounded-xl hover:glass-light smooth-transition"
                   >
