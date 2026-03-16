@@ -5,25 +5,30 @@ const { Op, fn, col, where } = require("sequelize");
 exports.getAllMessages = async (req, res) => {
     try {
 
-        const { form_type, status } = req.query;
+        const { type, status } = req.query;
 
         let whereCondition = {};
 
-        if (form_type) {
-            whereCondition.form_type = form_type;
+        if (type && type !== "all") {
+            whereCondition.form_type = type;
         }
 
         if (status) {
             whereCondition.status = status;
         }
 
-        const messages = await db.Contact.findAll({
+        const messages = await db.ContactMessage.findAll({
             where: whereCondition,
             order: [["created_at", "DESC"]]
         });
 
+        const data = messages.map((message , index) => ({
+            sr_no : index + 1,
+            ...message.dataValues
+        }));
+
         return res.status(200).json({
-            messages
+            messages: data
         });
 
     } catch (err) {
@@ -67,7 +72,7 @@ exports.markMessageRead = async (req, res) => {
 
         const { id } = req.params;
 
-        const [updatedRows] = await db.Contact.update(
+        const [updatedRows] = await db.ContactMessage.update(
             { status: "read" },
             { where: { id } }
         );

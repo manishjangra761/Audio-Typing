@@ -5,6 +5,7 @@ import CategoriesPage from "./CategoriesPage";
 import UsersPage from "../Admin Routes/UsersPage";
 import ManageAudio from "../Admin Routes/ManageAudio";
 import ProfilePage from "../../ProfilePage";
+import ContactMessages from "./ContactMessages";
 // import UploadAudioPage from "./UploadAudioPage";
 // import ManageAudio from "./ManageAudio";
 // import AdminResultPage from "./AdminResultPage";
@@ -20,6 +21,7 @@ const SuperAdminRoutes = () => {
         <Route path="users" element={<UsersPage />} />
         <Route path="audio-library" element={<ManageAudio />} />
         <Route path="profile" element={<ProfilePage />} />
+        <Route path="/contact_messages" element={<ContactMessages />} />
         {/* <Route path="users" element={<UsersPage />} />
         <Route path="upload-audio" element={<UploadAudioPage />} />
         <Route path="manage-audio" element={<ManageAudio />} />

@@ -26,6 +26,7 @@ const Sidebar = ({ role }) => {
       { name: "Admins Management", path: "/superadmin/admins", icon: FaUsers },
       { name: "Users Management", path: "/superadmin/users", icon: FaUserCog },
       { name: "Audio Library", path: "/superadmin/audio-library", icon: FaMicrophone },
+      { name: "Contact Messages", path: "/superadmin/contact_messages", icon: FaClipboardList },
       // { name: "Reports", path: "/superadmin/reports", icon: FaFileAlt },
       // { name: "Analytics", path: "/superadmin/analytics", icon: FaChartLine },
       { name: "Profile", path: "/superadmin/profile", icon: FaUserCog },
