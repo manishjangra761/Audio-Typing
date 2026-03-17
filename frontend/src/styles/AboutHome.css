@@ -1,0 +1,16 @@
+/* AboutHome CSS - Migrated to Tailwind CSS
+   See src/styles/global.css and AboutHome.jsx for modern Tailwind-based styling */
+
+/* Placeholder - Styles now managed by Tailwind CSS */
+
+  color: white;
+}
+
+.about-para p {
+  z-index: 2;
+  color: white;
+}
+
+.about-unorder-list {
+  margin: 0px 20px;
+}

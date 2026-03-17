@@ -1,0 +1,170 @@
+.about-page {
+  font-family: "Poppins", sans-serif;
+  color: #222;
+}
+
+/* HERO */
+.hero-about {
+  height: 80vh;
+  background-image: url("../../public/assets/bg.png");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  top: -87px;
+}
+
+.hero-overlay {
+  height: 100%;
+  background: linear-gradient(
+    rgba(0,0,0,0.65),
+    rgba(0,0,0,0.65)
+  );
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  /* border-radius: 25px; */
+}
+
+.hero-about h1 {
+  font-size: 52px;
+  font-weight: 700;
+}
+
+.hero-about p {
+  font-size: 24px;
+  margin: 15px 0 25px;
+}
+
+.cta-btn {
+  background: #5551AD;
+  color: white;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.cta-btn:hover {
+  transform: translateY(-3px);
+  background: #4440a0;
+}
+
+/* SECTIONS */
+.section {
+  max-width: 1200px;
+  margin: auto;
+  padding: 70px 20px;
+}
+
+.section h2 {
+  font-size: 34px;
+  margin-bottom: 25px;
+}
+
+/* WHO WE ARE */
+.who {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.who-text p {
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+
+.who-icons div {
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.who-image img {
+  width: 100%;
+  border-radius: 16px;
+}
+
+/* OFFER */
+.offer {
+  background: #e4e6ee;
+  border-radius: 20px;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.feature-card {
+  background: white;
+  padding: 22px;
+  border-radius: 14px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.feature-card:hover {
+  transform: translateY(-6px);
+}
+
+/* MISSION VISION */
+.mission-vision {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+
+.mv-card {
+  padding: 30px;
+  border-radius: 14px;
+  color: white;
+}
+
+.mission {
+  background: #3b82f6;
+}
+
+.vision {
+  background: #10b981;
+}
+
+.mv-card p {
+  margin-top: 10px;
+  line-height: 1.7;
+}
+
+/* BOTTOM CTA */
+.bottom-cta {
+  text-align: center;
+  padding: 80px 20px;
+  background: #111827;
+  color: white;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+
+  .hero-about h1 {
+    font-size: 36px;
+  }
+
+  .hero-about p {
+    font-size: 18px;
+  }
+
+  .who {
+    grid-template-columns: 1fr;
+  }
+
+  .mission-vision {
+    grid-template-columns: 1fr;
+  }
+}

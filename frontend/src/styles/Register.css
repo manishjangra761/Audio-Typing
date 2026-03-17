@@ -1,0 +1,71 @@
+/* Register CSS - Migrated to Tailwind CSS
+   See src/styles/global.css and Register.jsx for modern Tailwind-based styling with glassmorphism design */
+
+/* Placeholder - Styles now managed by Tailwind CSS */
+.login-options a {
+  color: white;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.auth-switch {
+  text-align: center;
+  color: white;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.auth-switch a {
+  color: white;
+  /* text-decoration: none; */
+}
+
+.left-content {
+  flex: 1;
+  color: white;
+  max-width: 520px;
+}
+
+.left-content h1 {
+  font-size: 56px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.left-content p {
+  font-size: 20px;
+  line-height: 1.6;
+  opacity: 0.95;
+  margin-bottom: 20px;
+}
+
+.left-content ul {
+  list-style: none;
+  padding: 0;
+}
+
+.left-content li {
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+
+@media (max-width: 900px) {
+
+  .register-layout {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: 30px;
+  }
+
+  .left-content {
+    max-width: 90%;
+  }
+
+  .register-form-container {
+    justify-content: center;
+    width: 100%;
+  }
+}
