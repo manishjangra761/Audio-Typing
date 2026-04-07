@@ -95,7 +95,9 @@ exports.getAudio = async (req, res) => {
 
     const audio = await db.Audio.findOne({
       where: { id },
-      exclude: ["correct_text" , "createdAt", "updatedAt"],
+      attributes: {
+        exclude: ["correct_text", "audio_file", "createdAt", "updatedAt"],
+      },
       include: [
         {
           model: db.Category,

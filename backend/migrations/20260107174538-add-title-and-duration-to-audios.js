@@ -5,16 +5,13 @@ module.exports = {
     // Add 'title' column
     await queryInterface.addColumn('audios', 'title', {
       type: Sequelize.STRING,
-      allowNull: false, // set to true if title can be empty
-      after : 'correct_text'
+      allowNull: false,
     });
 
-    // Add 'duration' column
     await queryInterface.addColumn('audios', 'duration', {
-      type: Sequelize.INTEGER, // store duration in seconds (or change if needed)
+      type: Sequelize.INTEGER,
       allowNull: true,
-      defaultValue: 0, // optional default
-      after : 'title'
+      defaultValue: 0,
     });
   },
 
