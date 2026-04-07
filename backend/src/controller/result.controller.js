@@ -99,6 +99,11 @@ exports.getResult = async (req, res) => {
     const user_id = req.query.user_id ? req.query.user_id : req.user.user_id;
     const { unique, audio_id } = req.query;
 
+    const uid = parseInt(String(user_id), 10);
+    if (Number.isNaN(uid)) {
+      return res.status(400).json({ error: "Invalid user_id" });
+    }
+
     let attempts;
 
     if (unique) {
@@ -106,12 +111,12 @@ exports.getResult = async (req, res) => {
       attempts = await db.Attempt.findAll({
 
         where: {
-          user_id,
+          user_id: uid,
           attempt_type: {
             [Op.in]: db.sequelize.literal(`(
               SELECT MAX(attempt_type)
               FROM attempts
-              WHERE user_id = ${user_id}
+              WHERE user_id = ${uid}
               GROUP BY audio_id
             )`)
           }
@@ -131,7 +136,7 @@ exports.getResult = async (req, res) => {
 
     } else {
 
-      whereCondition = { user_id };
+      let whereCondition = { user_id: uid };
       if (audio_id) {
         whereCondition.audio_id = audio_id;
       }

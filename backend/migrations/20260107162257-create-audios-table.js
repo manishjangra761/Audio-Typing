@@ -25,8 +25,8 @@ module.exports = {
 
       // 🔥 actual audio stored in DB
       audio_file: {
-        type: Sequelize.BLOB("long"),   // supports large files
-        allowNull: false
+        type: Sequelize.BLOB,
+        allowNull: false,
       },
 
       // 👉 for future cloud storage (optional)
