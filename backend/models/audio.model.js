@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       },
 
       audio_file: {
-        type: DataTypes.BLOB("long"), // storing actual audio binary
+        type: DataTypes.BLOB,
         allowNull: false,
       },
 
