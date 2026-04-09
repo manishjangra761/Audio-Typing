@@ -1,5 +1,5 @@
 import React from "react";
-import { FiArrowRight, FiCheck } from "react-icons/fi";
+import { FiCheck } from "react-icons/fi";
 
 const AuthLayout = ({ title, children }) => {
   return (

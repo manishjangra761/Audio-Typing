@@ -1,14 +1,41 @@
 import axios from "../../src/services/api";
 import React, { useState } from "react";
-import { FaSignOutAlt, FaBars, FaTimes, FaUser, FaCog } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { FaSignOutAlt, FaBars, FaTimes, FaUser, FaCog, FaChartLine, FaMicrophone, FaClipboardList, FaHistory, FaUserCog, FaBook, FaFileAlt, FaUsers } from "react-icons/fa";
+import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useUser } from '../context/UserContext';
 
-const Header = ({ userName }) => {
+const Header = ({ userName, userRole }) => {
   const navigate = useNavigate();
   const { logout } = useUser();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const sidebarMenuItems = {
+    super_admin: [
+      { name: "Dashboard", path: "/superadmin", icon: FaChartLine },
+      { name: "Exam Categories", path: "/superadmin/exam-categories", icon: FaBook },
+      { name: "Admins Management", path: "/superadmin/admins", icon: FaUsers },
+      { name: "Users Management", path: "/superadmin/users", icon: FaUserCog },
+      { name: "Audio Library", path: "/superadmin/audio-library", icon: FaMicrophone },
+      { name: "Contact Messages", path: "/superadmin/contact_messages", icon: FaClipboardList },
+      { name: "Profile", path: "/superadmin/profile", icon: FaUserCog },
+    ],
+    admin: [
+      { name: "Dashboard", path: "/admin", icon: FaChartLine },
+      { name: "Users", path: "/admin/users", icon: FaUsers },
+      { name: "Upload Audio", path: "/admin/upload-audio", icon: FaMicrophone },
+      { name: "Manage Audio", path: "/admin/manage-audio", icon: FaBook },
+      { name: "Results", path: "/admin/results", icon: FaFileAlt },
+      { name: "Profile", path: "/admin/profile", icon: FaUserCog },
+    ],
+    user: [
+      { name: "Dashboard", path: "/student", icon: FaChartLine },
+      { name: "Start Practice", path: "/student/practice", icon: FaMicrophone },
+      { name: "My Results", path: "/student/results", icon: FaClipboardList },
+      { name: "Performance History", path: "/student/history", icon: FaHistory },
+      { name: "Profile", path: "/student/profile", icon: FaUserCog },
+    ],
+  };
+  const mobileNavItems = sidebarMenuItems[userRole] || [];
 
   const handleLogout = async () => {
     try {
@@ -79,7 +106,7 @@ const Header = ({ userName }) => {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden glass-card border-t border-white/10 p-4 space-y-3 animate-fadeInDown">
+        <div className="md:hidden glass-card border-t border-white/10 p-4 space-y-3 animate-fadeInDown max-h-[calc(100vh-80px)] overflow-y-auto overscroll-contain">
           <div className="glass rounded-lg px-4 py-3 flex items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-primary-500/50 flex items-center justify-center">
               <FaUser className="text-white" />
@@ -90,13 +117,39 @@ const Header = ({ userName }) => {
             </div>
           </div>
 
+          <nav className="space-y-2">
+            {mobileNavItems.map((item) => {
+              const Icon = item.icon;
+              return (
+                <NavLink
+                  key={item.path}
+                  to={item.path}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={({ isActive }) =>
+                    `w-full px-4 py-3 rounded-lg text-left smooth-transition flex items-center gap-3 ${
+                      isActive
+                        ? "bg-gradient-to-r from-primary-500/20 to-accent-500/20 text-primary-400 border-l-2 border-primary-400"
+                        : "glass text-white hover:glass-light"
+                    }`
+                  }
+                >
+                  <Icon className="w-4 h-4" />
+                  {item.name}
+                </NavLink>
+              );
+            })}
+          </nav>
+
           <button className="w-full glass px-4 py-2 rounded-lg text-left text-white hover:glass-light smooth-transition flex items-center gap-3">
             <FaCog className="w-4 h-4" />
             Settings
           </button>
 
           <button
-            onClick={handleLogout}
+            onClick={() => {
+              setMobileMenuOpen(false);
+              handleLogout();
+            }}
             className="w-full glass px-4 py-2 rounded-lg text-left text-red-400 hover:glass-light smooth-transition flex items-center gap-3"
           >
             <FaSignOutAlt className="w-4 h-4" />

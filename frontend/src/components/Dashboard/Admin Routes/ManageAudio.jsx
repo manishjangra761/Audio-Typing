@@ -13,8 +13,7 @@ import {
   FaClock,
   FaSearch,
   FaFilter,
-  FaExclamationTriangle,
-  FaCheckCircle
+  FaExclamationTriangle
 } from "react-icons/fa";
 import { toast } from "react-toastify";
 
@@ -185,7 +184,7 @@ const ManageAudio = () => {
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
-              className="w-full bg-white/10 text-white border border-white/20 rounded-lg pl-10 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-400 transition-all"
+              className="w-full bg-slate-800 text-white border border-white/20 rounded-lg pl-10 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-400 transition-all"
             >
               <option value="" className="bg-slate-800 text-white">All Categories</option>
               {categories.map((cat) => (
@@ -201,9 +200,9 @@ const ManageAudio = () => {
             <select
               value={selectedLanguage}
               onChange={(e) => setSelectedLanguage(e.target.value)}
-              className="w-full bg-white/10 text-white border border-white/20 rounded-lg pl-10 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-400 transition-all"
+              className="w-full bg-slate-800 text-white border border-white/20 rounded-lg pl-10 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-400 transition-all"
             >
-              <option value="">All Languages</option>
+              <option value="" className="bg-slate-800 text-white">All Languages</option>
               <option value="english" className="bg-slate-800 text-white">English</option>
               <option value="hindi" className="bg-slate-800 text-white">Hindi</option>
             </select>
@@ -345,7 +344,7 @@ const ManageAudio = () => {
                     <select
                       value={editData.category_id}
                       onChange={(e) => setEditData({ ...editData, category_id: e.target.value })}
-                      className="w-full bg-white/10 text-white border border-white/20 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-400"
+                      className="w-full bg-slate-800 text-white border border-white/20 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-400"
                     >
                       {categories.map((cat) => (
                         <option key={cat.id} value={cat.id} className="bg-slate-800 text-white">
@@ -360,7 +359,7 @@ const ManageAudio = () => {
                     <select
                       value={editData.language}
                       onChange={(e) => setEditData({ ...editData, language: e.target.value })}
-                      className="w-full bg-white/10 text-white border border-white/20 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-400"
+                      className="w-full bg-slate-800 text-white border border-white/20 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-400"
                     >
                       <option value="english" className="bg-slate-800 text-white">English</option>
                       <option value="hindi" className="bg-slate-800 text-white">Hindi</option>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import axios from "../../../services/api";
 import {
   FaUsers,
@@ -73,7 +73,7 @@ const UsersPage = () => {
   //   }
   // };
 
-  const getUsers = async (search = "", status = "") => {
+  const getUsers = useCallback(async (search = "", status = "") => {
     try {
       setLoading(true);
 
@@ -97,7 +97,7 @@ const UsersPage = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [location.pathname]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -109,10 +109,9 @@ const UsersPage = () => {
 
   useEffect(() => {
     getUsers();
-  }, [location.pathname]);
+  }, [getUsers]);
 
   useEffect(() => {
-
     if (debouncedSearch.length >= 3 || selectedStatus !== "") {
       getUsers(debouncedSearch, selectedStatus);
     }
@@ -120,8 +119,7 @@ const UsersPage = () => {
     if (debouncedSearch.length === 0 && selectedStatus === "") {
       getUsers();
     }
-
-  }, [debouncedSearch, selectedStatus]);
+  }, [debouncedSearch, selectedStatus, getUsers]);
 
 
   const handleChange = (e) => {
@@ -327,7 +325,7 @@ const UsersPage = () => {
             <select
               value={selectedStatus}
               onChange={(e) => setSelectedStatus(e.target.value)}
-              className="w-full bg-white/10 text-white border border-white/20 rounded-lg pl-10 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-400 transition-all"
+              className="w-full bg-slate-800 text-white border border-white/20 rounded-lg pl-10 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-400 transition-all"
             >
               <option value="" className="bg-slate-800 text-white">All Status</option>
               <option value="active" className="bg-slate-800 text-white">Active</option>
@@ -526,7 +524,7 @@ const UsersPage = () => {
                   name="type"
                   value={formData.type}
                   onChange={handleChange}
-                  className="w-full bg-white/10 text-white border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-400 transition-all"
+                  className="w-full bg-slate-800 text-white border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-400 transition-all"
                 >
                   <option value="user" className="bg-slate-800 text-white">User</option>
                   <option value="admin" className="bg-slate-800 text-white">Administrator</option>
@@ -541,7 +539,7 @@ const UsersPage = () => {
                   name="status"
                   value={formData.status}
                   onChange={handleChange}
-                  className="w-full bg-white/10 text-white border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-400 transition-all"
+                  className="w-full bg-slate-800 text-white border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-400 transition-all"
                 >
 
                   {originalStatus === "unapproved" && (

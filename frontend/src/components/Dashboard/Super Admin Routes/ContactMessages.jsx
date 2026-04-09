@@ -107,7 +107,7 @@ const ContactMessages = () => {
             <select
               value={type}
               onChange={(e) => setType(e.target.value)}
-              className="w-full bg-white/10 text-white border border-white/20 rounded-lg pl-10 pr-4 py-3"
+              className="w-full bg-slate-800 text-white border border-white/20 rounded-lg pl-10 pr-4 py-3"
             >
               <option value="all" className="bg-slate-800">All Messages</option>
               <option value="contact" className="bg-slate-800">Contact</option>
@@ -122,7 +122,7 @@ const ContactMessages = () => {
             <select
               value={status}
               onChange={(e) => setStatus(e.target.value)}
-              className="w-full bg-white/10 text-white border border-white/20 rounded-lg pl-10 pr-4 py-3"
+              className="w-full bg-slate-800 text-white border border-white/20 rounded-lg pl-10 pr-4 py-3"
             >
               <option value="" className="bg-slate-800">All Status</option>
               <option value="read" className="bg-slate-800">Read</option>

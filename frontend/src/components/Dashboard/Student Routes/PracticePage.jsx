@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { FaHeadphones } from 'react-icons/fa';
 import { useSearchParams, useNavigate } from "react-router-dom";
 import axios from "../../../services/api";
@@ -62,27 +62,11 @@ const PracticePage = () => {
 
   }, []);
 
-
-
   // -----------------------------------
   // Fetch Audios
   // -----------------------------------
-  useEffect(() => {
-
-    if (category && language) {
-
-      fetchAudios();
-
-    }
-
-  }, [category, language, search]);
-
-
-
   const fetchAudios = useCallback(async () => {
-
     try {
-
       const res = await axios.get("/audio/get_audios", {
         params: {
           category,
@@ -92,14 +76,16 @@ const PracticePage = () => {
       });
 
       setAudios(res.data.audios || []);
-
     } catch (err) {
-
       console.error("Failed to fetch audios", err);
-
     }
-
   }, [category, language, search]);
+
+  useEffect(() => {
+    if (category && language) {
+      fetchAudios();
+    }
+  }, [category, language, search, fetchAudios]);
 
 
   const formatDuration = (seconds) => {

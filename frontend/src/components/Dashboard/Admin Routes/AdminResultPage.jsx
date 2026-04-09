@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import axios from "../../../services/api";
 import { useNavigate } from "react-router-dom";
-import { FaArrowLeft, FaEye, FaUser, FaFileAudio, FaList } from "react-icons/fa";
+import { FaArrowLeft, FaEye, FaUser, FaList } from "react-icons/fa";
 
 const AdminResultPage = () => {
   const [selectedUser, setSelectedUser] = useState(null);
@@ -11,65 +11,57 @@ const AdminResultPage = () => {
   const [audios, setAudios] = useState([]);
   const navigate = useNavigate();
 
-  // GET ALL USERS
-  const getAllUsers = async () => {
+  const getAllUsers = useCallback(async () => {
     try {
       const response = await axios.get("/user/get_all_users");
       setUsers(response.data.users || []);
     } catch (err) {
       console.log(err);
     }
-  };
+  }, []);
 
-  // GET UNIQUE AUDIOS
-  const getUniqueAudios = async () => {
-    try {
-      const response = await axios.get("/student/get_result", {
-        params: {
-          unique: true,
-          user_id: selectedUser.id,
-        },
-      });
-      setAudios(response.data.attempts || []);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  // GET ATTEMPTS
-  const getAudioAttempts = async () => {
-    try {
-      const response = await axios.get("/student/get_result", {
-        params: {
-          user_id: selectedUser.id,
-          audio_id: selectedAudio.audio_id,
-        },
-      });
-      setAllAudios(response.data.attempts || []);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  // LOAD USERS
   useEffect(() => {
     getAllUsers();
-  }, []);
+  }, [getAllUsers]);
 
   // LOAD USER AUDIOS
   useEffect(() => {
-    if (selectedUser) {
-      setSelectedAudio(null);
-      getUniqueAudios();
-    }
+    if (!selectedUser) return;
+    setSelectedAudio(null);
+    const load = async () => {
+      try {
+        const response = await axios.get("/student/get_result", {
+          params: {
+            unique: true,
+            user_id: selectedUser.id,
+          },
+        });
+        setAudios(response.data.attempts || []);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    load();
   }, [selectedUser]);
 
   // LOAD ATTEMPTS
   useEffect(() => {
-    if (selectedAudio) {
-      getAudioAttempts();
-    }
-  }, [selectedAudio]);
+    if (!selectedAudio || !selectedUser) return;
+    const load = async () => {
+      try {
+        const response = await axios.get("/student/get_result", {
+          params: {
+            user_id: selectedUser.id,
+            audio_id: selectedAudio.audio_id,
+          },
+        });
+        setAllAudios(response.data.attempts || []);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    load();
+  }, [selectedAudio, selectedUser]);
 
   return (
     <div className="space-y-8">

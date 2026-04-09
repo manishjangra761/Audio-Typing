@@ -8,15 +8,12 @@ import {
   FaUserCog,
   FaBook,
   FaFileAlt,
-  FaUsers,
-  FaTools,
-  FaCogs,
-  FaTimes
+  FaUsers
 } from "react-icons/fa";
 
 const Sidebar = ({ role }) => {
 
-  const [expanded, setExpanded] = useState(true);
+  const [expanded] = useState(true);
 
   const menuItems = {
     super_admin: [
@@ -54,14 +51,6 @@ const Sidebar = ({ role }) => {
 
   return (
     <>
-      {/* Sidebar Toggle for Mobile */}
-      <button
-        onClick={() => setExpanded(!expanded)}
-        className="fixed bottom-6 right-6 z-40 md:hidden w-12 h-12 rounded-full glass flex items-center justify-center text-white hover:glass-light smooth-transition"
-      >
-        {expanded ? <FaTimes className="w-5 h-5" /> : "≡"}
-      </button>
-
       {/* Sidebar */}
       <aside 
         className={`fixed md:relative z-30 h-screen left-0 top-0 glass-elevated border-r border-white/10 backdrop-blur-xl pt-6 overflow-y-auto smooth-transition ${
@@ -101,14 +90,6 @@ const Sidebar = ({ role }) => {
           </div>
         </div>
       </aside>
-
-      {/* Mobile Sidebar Background */}
-      {expanded && (
-        <div 
-          className="fixed inset-0 z-20 md:hidden backdrop-blur-sm"
-          onClick={() => setExpanded(false)}
-        />
-      )}
     </>
   );
 };

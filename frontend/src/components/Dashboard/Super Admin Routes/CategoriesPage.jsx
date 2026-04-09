@@ -3,7 +3,6 @@ import axios from "../../../services/api";
 import {
   FaTags,
   FaPlus,
-  FaList,
   FaExclamationTriangle,
   FaTrash,
   FaEdit

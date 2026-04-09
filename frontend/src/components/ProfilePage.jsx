@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "../services/api";
-import { useUser } from "../context/UserContext";
-import RoleBased from "./RoleBased";
 import { FaUser, FaPhone, FaEnvelope, FaEdit, FaSave, FaTimes } from "react-icons/fa";
 import { toast } from "react-toastify";
 
 const ProfilePage = () => {
-  const { user } = useUser();
-
   const [profile, setProfile] = useState({
     name: "",
     email: "",

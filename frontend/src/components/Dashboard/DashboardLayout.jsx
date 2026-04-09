@@ -15,7 +15,7 @@ const DashboardLayout = ({ children }) => {
       </div>
 
       {/* Header */}
-      <Header userName={user?.name || 'user'} />
+      <Header userName={user?.name || 'user'} userRole={user?.role || 'user'} />
 
       {/* Main Body */}
       <div className="flex flex-1 overflow-hidden">

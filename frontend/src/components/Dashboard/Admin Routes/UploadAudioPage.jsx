@@ -196,7 +196,7 @@ const UploadAudioPage = () => {
                 name="category_id"
                 value={formData.category_id}
                 onChange={handleChange}
-                className={`w-full bg-white/10 text-white border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary-400 transition-all ${
+                className={`w-full bg-slate-800 text-white border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary-400 transition-all ${
                   errors.category_id ? "border-red-400" : "border-white/20"
                 }`}
                 required
@@ -226,7 +226,7 @@ const UploadAudioPage = () => {
                 name="language"
                 value={formData.language}
                 onChange={handleChange}
-                className={`w-full bg-white/10 text-white border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary-400 transition-all ${
+                className={`w-full bg-slate-800 text-white border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary-400 transition-all ${
                   errors.language ? "border-red-400" : "border-white/20"
                 }`}
                 required
