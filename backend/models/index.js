@@ -1,5 +1,8 @@
 'use strict';
 
+// Eager load so Vercel/@vercel/nft includes pg in the serverless bundle (Sequelize requires it dynamically).
+require('pg');
+
 const fs = require('fs');
 const path = require('path');
 const process = require('process');
